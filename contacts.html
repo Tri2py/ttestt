@@ -1,11 +1,26 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
     <title>Mulham Portfolio | Get in Touch</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Get in touch with Mulham. Contact me for creative design, web development, branding, and digital marketing services.">
+    <meta name="keywords"
+        content="Mulham, Contact, Web Design, Graphic Design, UI/UX, Branding, Web Development, Hire Designer">
+    <meta name="author" content="Mulham">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mulham Portfolio | Get in Touch">
+    <meta property="og:description" content="Contact me for creative design and web development services.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mulham.design/contacts">
+    <meta property="og:image" content="img/mulham_icon.png">
 
     <!-- Google Fonts -->
     <link href="..\..\css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
@@ -20,18 +35,308 @@
 
     <!-- Favicon -->
     <link rel="icon" href="img\favicon.png" sizes="32x32">
+
+    <!-- Header/Navbar Styles -->
+    <style>
+        /* Logo - Outside navbar, on the left, larger */
+        .bringer-header-lp {
+            position: fixed !important;
+            left: 40px !important;
+            top: 20px !important;
+            z-index: 112 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        #bringer-header.is-sticky~.bringer-header-lp,
+        body:has(#bringer-header.is-sticky) .bringer-header-lp {
+            top: 15px !important;
+        }
+
+        .bringer-logo {
+            display: block !important;
+        }
+
+        .bringer-logo img {
+            height: 64px !important;
+            width: auto !important;
+            transition: transform 0.3s ease !important;
+        }
+
+        .bringer-logo:hover img {
+            transform: scale(1.1) !important;
+        }
+
+        /* Header/Navbar - Without logo, centered */
+        #bringer-header {
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+            padding: 0 40px !important;
+            border-radius: 16px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            max-width: 720px !important;
+            min-width: auto !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+
+        #bringer-header.is-sticky {
+            top: 12px !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .bringer-header-inner {
+            padding: 16px 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+
+        /* Hide logo inside header */
+        .bringer-header-inner .bringer-header-lp {
+            display: none !important;
+        }
+
+        .bringer-header-mp {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        nav.bringer-nav {
+            width: 100% !important;
+        }
+
+        nav.bringer-nav ul.main-menu {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.main-menu li {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.main-menu li a {
+            position: relative;
+            padding: 10px 22px !important;
+            border-radius: 8px;
+            transition: all 0.2s ease !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            color: rgba(224, 224, 224, 0.8) !important;
+            white-space: nowrap !important;
+        }
+
+        ul.main-menu li a:hover {
+            background: rgba(127, 90, 240, 0.12) !important;
+            color: var(--bringer-s-heading) !important;
+        }
+
+        ul.main-menu li.current-menu-item>a {
+            background: rgba(127, 90, 240, 0.18) !important;
+            color: var(--bringer-s-heading) !important;
+            font-weight: 500 !important;
+        }
+
+        /* Hide active menu indicator */
+        .bringer-active-menu-ind {
+            display: none !important;
+        }
+
+        .bringer-active-menu-ind::before {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            /* Hide desktop header, show mobile header */
+            .bringer-header-inner {
+                display: none !important;
+            }
+
+            .bringer-mobile-header-inner {
+                display: flex !important;
+            }
+
+            /* Hide the outside fixed logo (mobile header has its own) */
+            .bringer-header-lp {
+                display: none !important;
+            }
+
+            .bringer-header-lp {
+                left: 20px !important;
+                top: 15px !important;
+            }
+
+            .bringer-logo img {
+                height: 36px !important;
+            }
+
+            #bringer-header {
+                padding: 0 16px !important;
+                max-width: calc(100% - 80px) !important;
+                border-radius: 12px !important;
+            }
+
+            .bringer-header-inner {
+                padding: 8px 0 !important;
+            }
+
+            nav.bringer-nav ul.main-menu {
+                gap: 2px !important;
+            }
+
+            ul.main-menu li a {
+                padding: 5px 10px !important;
+                font-size: 12px !important;
+            }
+
+            /* Contact cards - remove forced square, reduce padding */
+            .stg-aspect-square {
+                aspect-ratio: auto !important;
+            }
+
+            .bringer-block {
+                padding: 20px 16px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bringer-header-lp {
+                left: 16px !important;
+                top: 12px !important;
+            }
+
+            .bringer-logo img {
+                height: 32px !important;
+            }
+
+            #bringer-header {
+                padding: 0 12px !important;
+                max-width: calc(100% - 60px) !important;
+                border-radius: 10px !important;
+            }
+
+            .bringer-header-inner {
+                padding: 6px 0 !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Preloader -->
+    <div id="loader-wrapper">
+        <div id="loader">
+            <div class="loader-spinner"></div>
+        </div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <style>
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+        }
+
+        #loader {
+            display: block;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -30px 0 0 -30px;
+            z-index: 100001;
+            transition: all 0.3s ease-out;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #7f5af0;
+            border-right-color: #2cb67d;
+            animation: loaderSpin 0.8s linear infinite;
+        }
+
+        @keyframes loaderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loader-wrapper .loader-section {
+            position: fixed;
+            top: 0;
+            width: 51%;
+            height: 100%;
+            z-index: 100000;
+        }
+
+        #loader-wrapper .loader-section.section-left {
+            left: 0;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        #loader-wrapper .loader-section.section-right {
+            right: 0;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .loaded #loader {
+            opacity: 0;
+            transition: all 0.3s ease-out;
+        }
+
+        .loaded #loader-wrapper .loader-section.section-left {
+            transform: translateX(-100%);
+            transition: all 0.5s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .loaded #loader-wrapper .loader-section.section-right {
+            transform: translateX(100%);
+            transition: all 0.5s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .loaded #loader-wrapper {
+            visibility: hidden;
+            transition: all 0.3s 0.8s ease-out;
+            transform: translateY(-100%);
+        }
+    </style>
+    <script>
+        function hidePreloader() { if (!document.body.classList.contains('loaded')) document.body.classList.add('loaded'); }
+        document.addEventListener('DOMContentLoaded', function () { setTimeout(hidePreloader, 400); });
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 2000);
+    </script>
+
+    <!-- Logo - Outside navbar, on the left -->
+    <div class="bringer-header-lp">
+        <a href="index.html" class="bringer-logo">
+            <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
+        </a>
+    </div>
+
     <!-- Header -->
     <header id="bringer-header" class="is-frosted is-sticky" data-appear="fade-down" data-unload="fade-up">
         <!-- Desktop Header -->
         <div class="bringer-header-inner">
-            <!-- Header Logo -->
-            <div class="bringer-header-lp">
-                <a href="contacts.html" class="bringer-logo">
-                    <img src="img\logo.png" alt="bringer." width="66" height="18">
-                </a>
-            </div>
             <!-- Main Menu -->
             <div class="bringer-header-mp">
                 <nav class="bringer-nav">
@@ -51,8 +356,8 @@
         </div>
         <!-- Mobile Header -->
         <div class="bringer-mobile-header-inner">
-            <a href="contacts.html" class="bringer-logo">
-                <img src="img\logo.png" alt="bringer." width="66" height="18">
+            <a href="index.html" class="bringer-logo">
+                <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
             </a>
             <a href="#" class="bringer-mobile-menu-toggler">
                 <i class="bringer-menu-toggler-icon">
@@ -67,56 +372,64 @@
     <!-- Page Main -->
     <main id="bringer-main">
         <div class="stg-container">
-            <!-- Section: Page Title -->
-            <section>
-                <div class="stg-row">
-                    <div class="stg-col-6 stg-offset-3 align-center">
-                        <h1 class="bringer-page-title" data-appear="fade-up" data-unload="fade-up">Get in Touch</h1>
-                        <p class="bringer-large-text" data-appear="fade-up" data-delay="100" data-unload="fade-up">I can help businesses of all sizes achieve their goals. I believe every brand, big or small, deserves to shine.</p>
-                    </div>
-                </div>
-                <div class="bringer-parallax-media" data-parallax-speed="20" data-appear="fade-up" data-delay="200" data-unload="fade-up">
-                    <img class="bringer-lazy" src="img\null.png" data-src="img/inner-pages/contacts01.jpg" alt="Get in Touch" width="1920" height="960">
-                </div><!-- .bringer-parallax-media -->
-            </section>
-
-            <!-- Section: About Us -->
-            <section>
-            </section>
-
             <!-- Section: Let's Talk -->
             <section>
                 <!-- Section Title -->
                 <div class="stg-row bringer-section-title">
                     <div class="stg-col-8 stg-offset-2">
                         <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">Let's talk!</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-delay="100" data-unload="fade-up">Here's how you can connect with Me</p>
+                            <h2 data-appear="fade-up" data-unload="fade-up">Contact!</h2>
+                            <p class="bringer-large-text" data-appear="fade-up" data-delay="100" data-unload="fade-up">
+                                Get My Links</p>
                         </div>
                     </div>
                 </div>
                 <!-- Contacts Grid -->
                 <div class="stg-row" data-stagger-appear="fade-up" data-delay="200" data-stagger-unload="fade-up">
                     <div class="stg-col-4 stg-tp-col-6 stg-tp-bottom-gap">
-                        <!-- Phone -->
-                        <div class="bringer-block stg-aspect-square stg-vertical-space-between">
-                            <a href="tel:+12345556789" class="bringer-grid-item-link"></a>
+                        <!-- Send Message -->
+                        <div class="bringer-block stg-vertical-space-between"
+                            style="position: relative; overflow: hidden;">
                             <div>
-                                <h5>Phone<span class="bringer-accent">.</span></h5>
-                                <h6>+963 992 318 066</h6>
+                                <h5>Send Message<span class="bringer-accent">.</span></h5>
                             </div>
-                            <p>Give me a call and chat directly with me. I'm always happy to answer any questions.</p>
+                            <form id="discordMessageForm" onsubmit="sendDiscordMessage(event)"
+                                style="display: flex; flex-direction: column; gap: 8px; flex: 1; margin-top: 8px;">
+                                <input type="text" id="msgName" placeholder="Your Name" required
+                                    style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 12px; color: #e0e0e0; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s;">
+                                <input type="email" id="msgEmail" placeholder="Your Email (optional)"
+                                    style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 12px; color: #e0e0e0; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s;">
+                                <textarea id="msgContent" placeholder="Your Message..." required rows="3"
+                                    style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 12px; color: #e0e0e0; font-size: 13px; font-family: inherit; outline: none; resize: none; flex: 1; transition: border-color 0.2s;"></textarea>
+                                <button type="submit" id="msgSendBtn"
+                                    style="background: linear-gradient(135deg, #7f5af0 0%, #2cb67d 100%); color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                    Send
+                                </button>
+                            </form>
+                            <div id="msgStatus"
+                                style="display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,17,23,0.95); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px; border-radius: inherit; z-index: 2;">
+                                <span id="msgStatusIcon" style="font-size: 32px;">✓</span>
+                                <span id="msgStatusText"
+                                    style="font-size: 14px; color: #e0e0e0; text-align: center; padding: 0 20px;"></span>
+                                <span id="msgCooldown" style="font-size: 12px; color: rgba(127, 90, 240, 0.8);"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="stg-col-4 stg-tp-col-6 stg-tp-bottom-gap">
                         <!-- Email -->
                         <div class="bringer-block stg-aspect-square stg-vertical-space-between">
-                            <a href="mailto:bringer@example.com" class="bringer-grid-item-link"></a>
+                            <a href="mailto:mulhamlol790@gmail.com" class="bringer-grid-item-link"></a>
                             <div>
                                 <h5>Email<span class="bringer-accent">.</span></h5>
                                 <h6>mulhamlol790@gmail.com</h6>
                             </div>
-                            <p>Send us a detailed message. I'll get back to you as soon as possible to discuss your creative project further.</p>
+                            <p>Send us a detailed message. I'll get back to you as soon as possible to discuss your
+                                creative project further.</p>
                         </div>
                     </div>
                     <div class="stg-col-4 stg-tp-col-12">
@@ -124,81 +437,38 @@
                         <div class="bringer-block stg-aspect-square stg-tp-aspect-rectangle stg-vertical-space-between">
                             <div>
                                 <h5>Social Media<span class="bringer-accent">.</span></h5>
-                                <ul class="bringer-socials-list stg-small-gap" data-stagger-appear="fade-up" data-stagger-delay="75">
+                                <ul class="bringer-socials-list stg-small-gap" data-stagger-appear="fade-up"
+                                    data-stagger-delay="75">
                                     <li>
-                                        <a href="https://discord.gg/your-invite" target="_blank" class="bringer-socials-discord">
+                                        <a href="https://pinterest.com/normal_person_as_trippy" target="_blank"
+                                            class="bringer-socials-pinterest">
                                             <i></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://www.instagram.com/yourusername" target="_blank" class="bringer-socials-instagram">
+                                        <a href="https://www.instagram.com/trii2py" target="_blank"
+                                            class="bringer-socials-instagram">
                                             <i></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://wa.me/yourphonenumber" target="_blank" class="bringer-socials-whatsapp">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="bringer-socials-linkedin">
+                                        <a href="https://www.linkedin.com/in/mulham-ibrahim" target="_blank"
+                                            class="bringer-socials-linkedin">
                                             <i></i>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-                            <p>Follow Me on Social Media Platforms for a glimpse into our creative world, industry insights, and projects.</p>
+                            <p>Follow Me on Social Media Platforms for a glimpse into our creative world, industry
+                                insights, and projects.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-
         </div><!-- .stg-container -->
 
-        <!-- Footer -->
-        <footer id="bringer-footer" data-appear="fade-up" data-unload="fade-down">
-            <!-- Footer Widgets Area -->
-            <div class="bringer-footer-widgets">
-                <div class="stg-container">
-                    <div class="stg-row" data-stagger-appear="fade-left" data-stagger-delay="100">
-                        <div class="stg-col-5 stg-tp-col-12 stg-tp-bottom-gap-l">
-                            <div class="bringer-info-widget">
-                                <a href="contacts.html" class="bringer-logo footer-logo">
-                                    <img src="img\logo.png" alt="bringer." width="66" height="18">
-                                </a>
-                                <div class="bringer-info-description">I’m a passionate designer and web developer who believes in the power of creativity. I help creative minds build a strong online presence that showcases their work and tells their story.</div>
-                                <span class="bringer-label">Follow me:</span>
-                                <ul class="bringer-socials-list" data-stagger-appear="fade-up" data-stagger-delay="75">
-                                    <li>
-                                        <a href="https://discord.gg/your-invite" target="_blank" class="bringer-socials-discord">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com/yourusername" target="_blank" class="bringer-socials-instagram">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://wa.me/yourphonenumber" target="_blank" class="bringer-socials-whatsapp">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="bringer-socials-linkedin">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div><!-- .stg-row -->
-                </div><!-- .stg-container -->
-            </div><!-- .bringer-footer-widgets -->
-
-        </footer>
-	</main>
+    </main>
 
     <!-- Right Click Protection Block -->
     <div class="bringer-rcp-wrap">
@@ -218,5 +488,119 @@
     <script src="js\st-core.js"></script>
     <script src="js\classes.js"></script>
     <script src="js\main.js"></script>
+
+    <!-- Discord Webhook Message Script -->
+    <script>
+        let msgCooldownActive = false;
+        let msgCooldownTimer = null;
+        let msgSentCount = 0;
+
+        async function sendDiscordMessage(e) {
+            e.preventDefault();
+
+            if (msgCooldownActive) return;
+
+            const name = document.getElementById('msgName').value.trim();
+            const email = document.getElementById('msgEmail').value.trim();
+            const message = document.getElementById('msgContent').value.trim();
+            const btn = document.getElementById('msgSendBtn');
+            const statusDiv = document.getElementById('msgStatus');
+            const statusIcon = document.getElementById('msgStatusIcon');
+            const statusText = document.getElementById('msgStatusText');
+            const cooldownText = document.getElementById('msgCooldown');
+
+            if (!name || !message) return;
+
+            btn.disabled = true;
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg> Sending...';
+
+            // Build embed fields
+            const fields = [
+                { name: '\ud83d\udc64 Name', value: name, inline: true }
+            ];
+            if (email) {
+                fields.push({ name: '\ud83d\udce7 Email', value: email, inline: true });
+            }
+            fields.push({ name: '\ud83d\udcac Message', value: message });
+
+            try {
+                const response = await fetch('https://discord.com/api/webhooks/1475587623358828704/jm2_P1PHBQu-fOzmwBuNyNdObie8VQq7DXYhpJXdMKJQrFPIhnzDiPMjgvTqred27D6E', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: '\ud83d\udce9 New Message from Portfolio',
+                            color: 8346352,
+                            fields: fields,
+                            timestamp: new Date().toISOString(),
+                            footer: { text: 'Mulham Portfolio Contact Form' }
+                        }]
+                    })
+                });
+
+                if (response.ok || response.status === 204) {
+                    msgSentCount++;
+                    statusIcon.textContent = '\u2713';
+                    statusIcon.style.color = '#2cb67d';
+                    statusText.textContent = 'Message sent successfully!';
+                    document.getElementById('discordMessageForm').reset();
+
+                    if (msgSentCount >= 2) {
+                        // Second message onwards: show cooldown
+                        startCooldown(statusDiv, cooldownText, btn);
+                    } else {
+                        // First message: just show success briefly
+                        statusDiv.style.display = 'flex';
+                        cooldownText.textContent = '';
+                        setTimeout(() => {
+                            statusDiv.style.display = 'none';
+                            btn.disabled = false;
+                            resetBtnText(btn);
+                        }, 2000);
+                    }
+                } else {
+                    statusIcon.textContent = '\u2715';
+                    statusIcon.style.color = '#f85149';
+                    statusText.textContent = 'Failed to send. Try again later.';
+                    statusDiv.style.display = 'flex';
+                    setTimeout(() => { statusDiv.style.display = 'none'; btn.disabled = false; resetBtnText(btn); }, 3000);
+                }
+            } catch (err) {
+                statusIcon.textContent = '\u2715';
+                statusIcon.style.color = '#f85149';
+                statusText.textContent = 'Network error. Please try again.';
+                statusDiv.style.display = 'flex';
+                setTimeout(() => { statusDiv.style.display = 'none'; btn.disabled = false; resetBtnText(btn); }, 3000);
+            }
+        }
+
+        function startCooldown(statusDiv, cooldownText, btn) {
+            msgCooldownActive = true;
+            statusDiv.style.display = 'flex';
+            let remaining = 120;
+
+            function updateTimer() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                cooldownText.textContent = `You can send again in ${mins}:${secs.toString().padStart(2, '0')}`;
+                if (remaining <= 0) {
+                    msgCooldownActive = false;
+                    statusDiv.style.display = 'none';
+                    cooldownText.textContent = '';
+                    btn.disabled = false;
+                    resetBtnText(btn);
+                    return;
+                }
+                remaining--;
+                msgCooldownTimer = setTimeout(updateTimer, 1000);
+            }
+            updateTimer();
+        }
+
+        function resetBtnText(btn) {
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send';
+        }
+    </script>
 </body>
+
 </html>

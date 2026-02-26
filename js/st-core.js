@@ -168,7 +168,8 @@ class ST_Core {
         // Image Drag Protection
         if ( this.dragProtection ) {
             this.$dom.document.on('mousedown', 'a', function (e) {
-                if ( jQuery(this).attr('href').indexOf('.png') || jQuery(this).attr('href').indexOf('.gif') || jQuery(this).attr('href').indexOf('.jpg') ) {
+                var href = jQuery(this).attr('href');
+                if ( href && (href.indexOf('.png') > -1 || href.indexOf('.gif') > -1 || href.indexOf('.jpg') > -1) ) {
                     e.preventDefault();
                 }
             });

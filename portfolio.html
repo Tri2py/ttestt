@@ -1,11 +1,26 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Mulham Portfolio</title>
+    <title>Mulham Portfolio | My Work</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Explore Mulham's portfolio of creative design and web development projects. Discover modern web projects that combine outstanding design with high performance.">
+    <meta name="keywords"
+        content="Mulham, Portfolio, Web Design, Graphic Design, UI/UX, Branding, Web Development, Creative Designer, Projects">
+    <meta name="author" content="Mulham">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mulham Portfolio | My Work">
+    <meta property="og:description" content="Explore my portfolio of creative design and web development projects.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mulham.design/portfolio">
+    <meta property="og:image" content="img/mulham_icon.png">
 
     <!-- Google Fonts -->
     <link href="..\..\css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
@@ -20,18 +35,429 @@
 
     <!-- Favicon -->
     <link rel="icon" href="img\favicon.png" sizes="32x32">
+
+    <!-- Header/Navbar Styles -->
+    <style>
+        /* Logo - Outside navbar, on the left, larger */
+        .bringer-header-lp {
+            position: fixed !important;
+            left: 40px !important;
+            top: 20px !important;
+            z-index: 112 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        #bringer-header.is-sticky~.bringer-header-lp,
+        body:has(#bringer-header.is-sticky) .bringer-header-lp {
+            top: 15px !important;
+        }
+
+        .bringer-logo {
+            display: block !important;
+        }
+
+        .bringer-logo img {
+            height: 64px !important;
+            width: auto !important;
+            transition: transform 0.3s ease !important;
+        }
+
+        .bringer-logo:hover img {
+            transform: scale(1.1) !important;
+        }
+
+        /* Header/Navbar - Without logo, centered */
+        #bringer-header {
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+            padding: 0 40px !important;
+            border-radius: 16px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            max-width: 720px !important;
+            min-width: auto !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+
+        #bringer-header.is-sticky {
+            top: 12px !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .bringer-header-inner {
+            padding: 16px 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+
+        /* Hide logo inside header */
+        .bringer-header-inner .bringer-header-lp {
+            display: none !important;
+        }
+
+        .bringer-header-mp {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        nav.bringer-nav {
+            width: 100% !important;
+        }
+
+        nav.bringer-nav ul.main-menu {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.main-menu li {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.main-menu li a {
+            position: relative;
+            padding: 10px 22px !important;
+            border-radius: 8px;
+            transition: all 0.2s ease !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            color: rgba(224, 224, 224, 0.8) !important;
+            white-space: nowrap !important;
+        }
+
+        ul.main-menu li a:hover {
+            background: rgba(127, 90, 240, 0.12) !important;
+            color: var(--bringer-s-heading) !important;
+        }
+
+        ul.main-menu li.current-menu-item>a {
+            background: rgba(127, 90, 240, 0.18) !important;
+            color: var(--bringer-s-heading) !important;
+            font-weight: 500 !important;
+        }
+
+        /* Hide active menu indicator */
+        .bringer-active-menu-ind {
+            display: none !important;
+        }
+
+        .bringer-active-menu-ind::before {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            /* Hide desktop header, show mobile header */
+            .bringer-header-inner {
+                display: none !important;
+            }
+
+            .bringer-mobile-header-inner {
+                display: flex !important;
+            }
+
+            /* Hide the outside fixed logo (mobile header has its own) */
+            .bringer-header-lp {
+                display: none !important;
+            }
+
+            .bringer-header-lp {
+                left: 20px !important;
+                top: 15px !important;
+            }
+
+            .bringer-logo img {
+                height: 36px !important;
+            }
+
+            #bringer-header {
+                padding: 0 16px !important;
+                max-width: calc(100% - 80px) !important;
+                border-radius: 12px !important;
+            }
+
+            .bringer-header-inner {
+                padding: 8px 0 !important;
+            }
+
+            nav.bringer-nav ul.main-menu {
+                gap: 2px !important;
+            }
+
+            ul.main-menu li a {
+                padding: 5px 10px !important;
+                font-size: 12px !important;
+            }
+
+            /* Card sizing - remove forced square, reduce padding */
+            .stg-aspect-square {
+                aspect-ratio: auto !important;
+            }
+
+            .bringer-block {
+                padding: 20px 16px !important;
+            }
+
+            /* Service card icon area - shrink */
+            .bringer-block .bringer-portfolio-card div[style*="height: 180px"] {
+                height: 100px !important;
+            }
+
+            .bringer-portfolio-card {
+                max-height: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bringer-header-lp {
+                left: 16px !important;
+                top: 12px !important;
+            }
+
+            .bringer-logo img {
+                height: 32px !important;
+            }
+
+            #bringer-header {
+                padding: 0 12px !important;
+                max-width: calc(100% - 60px) !important;
+                border-radius: 10px !important;
+            }
+
+            .bringer-header-inner {
+                padding: 6px 0 !important;
+            }
+        }
+
+        /* Portfolio Cards - Better Design */
+        .bringer-portfolio-card {
+            overflow: visible !important;
+            border-radius: 16px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .bringer-portfolio-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 12px 40px rgba(127, 90, 240, 0.3) !important;
+        }
+
+        .bringer-portfolio-card-image {
+            max-height: 280px !important;
+            overflow: hidden !important;
+            border-radius: 16px 16px 0 0 !important;
+        }
+
+        .bringer-portfolio-card-image img {
+            max-width: 100% !important;
+            width: 100% !important;
+            height: 280px !important;
+            object-fit: cover !important;
+            transition: transform 0.3s ease !important;
+        }
+
+        .bringer-portfolio-card:hover .bringer-portfolio-card-image img {
+            transform: scale(1.05) !important;
+        }
+
+        .bringer-portfolio-card-footer {
+            padding: 20px !important;
+            background: rgba(18, 18, 18, 0.8) !important;
+            border-radius: 0 0 16px 16px !important;
+        }
+
+        /* Web Development & Digital Marketing Section - Smaller Cards */
+        /* Target the last section with portfolio grid (Web Development section) */
+        #bringer-main>.stg-container>section:last-of-type .bringer-portfolio-card {
+            max-height: 280px !important;
+        }
+
+        #bringer-main>.stg-container>section:last-of-type .bringer-portfolio-card-image {
+            max-height: 180px !important;
+        }
+
+        #bringer-main>.stg-container>section:last-of-type .bringer-portfolio-card-image img {
+            max-height: 180px !important;
+        }
+
+        #bringer-main>.stg-container>section:last-of-type .bringer-portfolio-card-footer {
+            padding: 12px 16px !important;
+        }
+
+        #bringer-main>.stg-container>section:last-of-type .bringer-portfolio-card-title h6 {
+            font-size: 14px !important;
+        }
+
+        #bringer-main>.stg-container>section:last-of-type .bringer-meta {
+            font-size: 11px !important;
+        }
+
+        /* Also target section before footer */
+        #bringer-main>.stg-container>section:nth-last-of-type(2) .bringer-portfolio-card {
+            max-height: 280px !important;
+        }
+
+        #bringer-main>.stg-container>section:nth-last-of-type(2) .bringer-portfolio-card-image {
+            max-height: 180px !important;
+        }
+
+        #bringer-main>.stg-container>section:nth-last-of-type(2) .bringer-portfolio-card-image img {
+            max-height: 180px !important;
+        }
+
+        #bringer-main>.stg-container>section:nth-last-of-type(2) .bringer-portfolio-card-footer {
+            padding: 12px 16px !important;
+        }
+
+        #bringer-main>.stg-container>section:nth-last-of-type(2) .bringer-portfolio-card-title h6 {
+            font-size: 14px !important;
+        }
+
+        #bringer-main>.stg-container>section:nth-last-of-type(2) .bringer-meta {
+            font-size: 11px !important;
+        }
+
+        .bringer-modal-image img {
+            max-width: 100% !important;
+            max-height: 400px !important;
+            width: auto !important;
+            height: auto !important;
+            object-fit: contain !important;
+        }
+
+        /* Remove separator line between hero and next section */
+        section.backlight-bottom::after {
+            display: none !important;
+        }
+
+        section.backlight-bottom {
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Remove circular glow effect from portfolio cards */
+        .bringer-portfolio-card::before,
+        .bringer-portfolio-card::after {
+            display: none !important;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Preloader -->
+    <div id="loader-wrapper">
+        <div id="loader">
+            <div class="loader-spinner"></div>
+        </div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <style>
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+        }
+
+        #loader {
+            display: block;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -30px 0 0 -30px;
+            z-index: 100001;
+            transition: all 0.3s ease-out;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #7f5af0;
+            border-right-color: #2cb67d;
+            animation: loaderSpin 0.8s linear infinite;
+        }
+
+        @keyframes loaderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loader-wrapper .loader-section {
+            position: fixed;
+            top: 0;
+            width: 51%;
+            height: 100%;
+            z-index: 100000;
+        }
+
+        #loader-wrapper .loader-section.section-left {
+            left: 0;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        #loader-wrapper .loader-section.section-right {
+            right: 0;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .loaded #loader {
+            opacity: 0;
+            transition: all 0.3s ease-out;
+        }
+
+        .loaded #loader-wrapper .loader-section.section-left {
+            transform: translateX(-100%);
+            transition: all 0.5s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .loaded #loader-wrapper .loader-section.section-right {
+            transform: translateX(100%);
+            transition: all 0.5s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .loaded #loader-wrapper {
+            visibility: hidden;
+            transition: all 0.3s 0.8s ease-out;
+            transform: translateY(-100%);
+        }
+    </style>
+    <script>
+        function hidePreloader() { if (!document.body.classList.contains('loaded')) document.body.classList.add('loaded'); }
+        document.addEventListener('DOMContentLoaded', function () { setTimeout(hidePreloader, 400); });
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 2000);
+    </script>
+
+    <!-- Logo - Outside navbar, on the left -->
+    <div class="bringer-header-lp">
+        <a href="index.html" class="bringer-logo">
+            <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
+        </a>
+    </div>
+
     <!-- Header -->
     <header id="bringer-header" class="is-frosted is-sticky" data-appear="fade-down" data-unload="fade-up">
         <!-- Desktop Header -->
         <div class="bringer-header-inner">
-            <!-- Header Logo -->
-            <div class="bringer-header-lp">
-                <a href="portfolio.html" class="bringer-logo">
-                    <img src="img\logo.png" alt="bringer." width="66" height="18">
-                </a>
-            </div>
             <!-- Main Menu -->
             <div class="bringer-header-mp">
                 <nav class="bringer-nav">
@@ -51,8 +477,8 @@
         </div>
         <!-- Mobile Header -->
         <div class="bringer-mobile-header-inner">
-            <a href="portfolio.html" class="bringer-logo">
-                <img src="img\logo.png" alt="bringer." width="66" height="18">
+            <a href="index.html" class="bringer-logo">
+                <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
             </a>
             <a href="#" class="bringer-mobile-menu-toggler">
                 <i class="bringer-menu-toggler-icon">
@@ -68,31 +494,52 @@
     <main id="bringer-main">
         <div class="stg-container">
             <!-- Section: Page Title -->
-            <section>
+            <section class="backlight-bottom">
                 <div class="stg-row stg-bottom-gap-l">
                     <div class="stg-col-8 stg-tp-bottom-gap" data-appear="fade-right" data-unload="fade-left">
                         <h2>Portfolio</h2>
                     </div>
-                    <div class="stg-col-4 stg-tp-col-8 stg-tp-offset-4 tp-align-right stg-m-col-9 stg-m-offset-3" data-appear="fade-left" data-unload="fade-right">
-                        <p>Step into a dynamic realm where bold design vision and cutting-edge web development fuse together, transforming ideas into interactive digital realities.</p>
+                    <div class="stg-col-4 stg-tp-col-8 stg-tp-offset-4 tp-align-right stg-m-col-9 stg-m-offset-3"
+                        data-appear="fade-left" data-unload="fade-right">
+                        <p>Explore a curated collection of projects from Plasma Agency — from branding systems and
+                            corporate websites to digital marketing campaigns and front-end development work.</p>
                     </div>
                 </div>
 
                 <!-- Slider -->
-                <div class="bringer-slider-wrapper bringer-masked-block stg-bottom-gap" data-appear="fade-up" data-delay="100" data-unload="fade-up">
-                    <div class="swiper bringer-slider bringer-masked-media" data-autoplay="2000" data-duration="800" data-effect="slide">
+                <div class="bringer-slider-wrapper bringer-masked-block" data-appear="fade-up" data-delay="100"
+                    data-unload="fade-up">
+                    <div class="swiper bringer-slider bringer-masked-media" data-autoplay="2000" data-duration="800"
+                        data-effect="slide">
                         <div class="swiper-wrapper">
                             <!-- Slider Item -->
                             <div class="swiper-slide">
-                                <img src="img\portfolio\portfolio03\slider01.jpg" alt="Gaming Power" width="1920" height="1080">
+                                <img src="img\PortfolioHero\20260223_170535.png" alt="Portfolio Work" width="1920"
+                                    height="1080">
                             </div>
                             <!-- Slider Item -->
                             <div class="swiper-slide">
-                                <img src="img\portfolio\portfolio03\slider02.jpg" alt="Gaming Power" width="1920" height="1080">
+                                <img src="img\PortfolioHero\20260223_170554.jpg" alt="Portfolio Work" width="1920"
+                                    height="1080">
                             </div>
                             <!-- Slider Item -->
                             <div class="swiper-slide">
-                                <img src="img\portfolio\portfolio03\slider03.jpg" alt="Gaming Power" width="1920" height="1080">
+                                <img src="img\PortfolioHero\20260223_170607.png" alt="Portfolio Work" width="1920"
+                                    height="1080">
+                            </div>
+                            <!-- Slider Item -->
+                            <div class="swiper-slide">
+                                <img src="img\PortfolioHero\20260223_170626.jpg" alt="Portfolio Work" width="1920"
+                                    height="1080">
+                            </div>
+                            <!-- Slider Item -->
+                            <div class="swiper-slide">
+                                <img src="img\PortfolioHero\20260223_170640.jpg" alt="Portfolio Work" width="1920"
+                                    height="1080">
+                            </div>
+                            <!-- Slider Item -->
+                            <div class="swiper-slide">
+                                <img src="img\PortfolioHero\m.png" alt="Portfolio Work" width="1920" height="1080">
                             </div>
                         </div>
                     </div><!-- .bringer-slider -->
@@ -117,135 +564,146 @@
                             <h2 data-appear="fade-right">The Challenge</h2>
                         </div>
                     </div>
-                    <div class="stg-col-6 stg-tp-col-10 stg-tp-offset-2 stg-m-col-11 stg-m-offset-1" data-unload="fade-right">
+                    <div class="stg-col-6 stg-tp-col-10 stg-tp-offset-2 stg-m-col-11 stg-m-offset-1"
+                        data-unload="fade-right">
                         <div class="stg-bottom-gap-section stg-tp-bottom-gap-l" data-appear="fade-up">
-                            <h4>The Story</h4>
-                            <p>I wasn’t competing against a rival brand I was competing against limits.</p>
-                            <p>An overcrowded digital universe. Endless portfolios. Louder voices. Faster trends.</p>
-                            <p>Breaking through the noise wasn’t optional it was survival.</p>
-                            <p>To stand out, I had to build more than websites. I had to build impact.</p>
+                            <h4>The Journey</h4>
+                            <p>Founded Plasma Agency in 2022 with a vision to deliver impactful digital solutions.</p>
+                            <p>The digital landscape demanded more than just good design — it required strategic
+                                thinking, business acumen, and technical execution working together.</p>
+                            <p>Building an agency from the ground up meant wearing multiple hats: strategist, designer,
+                                developer, and marketer.</p>
                         </div>
                         <div class="stg-bottom-gap-section stg-tp-bottom-gap-l" data-appear="fade-up">
                             <h4>Reaching the Vision</h4>
-                            <p>The goal wasn’t just to design beautiful interfaces or write clean code.</p>
-                            <p>It was to create digital experiences that feel alive purposeful, immersive, and unforgettable.</p>
-                            <p>Every project became a mission:</p>
-                            <p>Push creative boundaries.</p>
-                            <p>Master new technologies.</p>
-                            <p>Turn ideas into living, breathing digital realities.</p>
+                            <p>The goal was clear: help businesses translate their goals into impactful digital
+                                solutions.</p>
+                            <p>From complete branding identity systems to responsive corporate websites, every project
+                                became an opportunity to create measurable business impact.</p>
+                            <p>Key achievements include:</p>
+                            <ul>
+                                <li>30+ complete branding identity systems delivered</li>
+                                <li>5,000+ social media followers grown through strategic campaigns</li>
+                                <li>Multiple corporate websites developed and launched</li>
+                            </ul>
                         </div>
                         <div data-appear="fade-up">
-                            <h4>My Approach</h4>
-                            <p class="bringer-large-text">I approach every challenge with strategy and curiosity.</p>
-                            <p>I study trends, user behavior, performance metrics, and emerging technologies — but I don’t follow them blindly. I refine them.</p>
-                            <p>From this process, I shape experiences built on:</p>
+                            <h4>Core Approach</h4>
+                            <p class="bringer-large-text">Aligning digital strategies with measurable business growth
+                                outcomes.</p>
+                            <p>My process combines technical execution with business acumen:</p>
                             <ul>
-                                <li>Strong visual identity</li>
-                                <li>Clean, scalable code</li>
-                                <li>Performance-driven development</li>
-                                <li>Human-centered creativity</li>
+                                <li>Translating technical concepts into actionable business value</li>
+                                <li>Defining brand identity, tone, and digital positioning</li>
+                                <li>Managing project timelines, deliverables, and operational workflows</li>
+                                <li>Performance-driven development and optimization</li>
                             </ul>
-                            <p>Because in a world full of templates, I choose intention.</p>
-                            <p>In a sea of noise, I design clarity.</p>
-                            <p>And this portfolio isn’t just my work</p>
-                            <p>It’s proof of the journey.</p>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Section: Solution -->
-            <section>
-                <div class="stg-row">
-                    <div class="stg-col-6 stg-tp-bottom-gap-l" data-appear="fade-right" data-unload="fade-left">
-                        <h2>The Solution</h2>
-                    </div>
-                    <div class="stg-col-6 stg-tp-col-10 stg-tp-offset-2 stg-m-col-11 stg-m-offset-1" data-appear="fade-left" data-unload="fade-right">
-                        <h4>Mission Accomplished</h4>
-                        <p class="bringer-large-text">The campaign was a resounding success. We blasted Xbox back into the stratosphere, achieving:</p>
-                        <ul class="bringer-marked-list">
-                            <li><span class="bringer-highlight">A supernova of brand awareness:</span> Xbox went from a stagnant star to a beacon attracting attention across the gaming universe.</li>
-                            <li><span class="bringer-highlight">Social media engagement that broke intergalactic records:</span> Gamers couldn't stop talking about Xbox, filling feeds with memes, discussions, and more.</li>
-                            <li><span class="bringer-highlight">Hardware sales soaring like a starfighter breaking orbit:</span> Xbox reclaimed its dominance, leaving competitors trailing in the cosmic dust.</li>
-                            <li><span class="bringer-highlight">Industry awards and accolades:</span> The campaign was hailed as a masterclass in rebranding, cementing Xbox's position as a gaming juggernaut.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <section data-padding="none" data-unload="zoom-out">
-                <div class="bringer-expand-on-scroll">
-                    <img class="bringer-lazy" src="img\null.png" data-src="img/portfolio/portfolio03/image04.jpg" alt="Gaming Power" width="1920" height="960">
-                </div><!-- .bringer-expand-on-scroll -->
-            </section>
-            
-
-            <!-- Section: Design Works Gallery -->
-            <section>
-                <!-- Section Title -->
-                <div class="stg-row bringer-section-title">
-                    <div class="stg-col-8 stg-offset-2">
-                        <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">Design Works Gallery</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">Explore a collection of creative design works that combine beauty and functionality</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Carousel -->
-                <div class="swiper bringer-carousel stg-bottom-gap" data-appear="fade-up" data-unload="fade-up" data-delay="200" data-tp-centered="0">
-                    <div class="swiper-wrapper">
-                        <!-- Card Item 03 -->
-                        <div class="bringer-block bringer-portfolio-card swiper-slide">
-                            <div class="bringer-portfolio-card-image">
-                                <img class="bringer-lazy" src="img\null.png" data-src="img/portfolio/portfolio03.jpg" alt="Design Portfolio" width="1200" height="1200">
-                            </div>
-                            <div class="bringer-portfolio-card-footer">
-                                <div class="bringer-portfolio-card-title">
-                                    <span class="bringer-meta">Design</span>
-                                    <h6>Design Work</h6>
-                                </div>
-                                <span class="bringer-icon bringer-icon-explore"></span>
-                            </div>
-                            <a href="portfolio.html"></a>
-                        </div><!-- .bringer-portfolio-card -->
-                    </div>
-                    <!-- Pagination -->
-                    <div class="swiper-pagination bringer-dots"></div>
-                </div><!-- .bringer-portfolio-carousel -->
             </section>
 
             <!-- Section: Programming Works Gallery -->
-            <section>
+            <section id="web-development">
                 <!-- Section Title -->
                 <div class="stg-row bringer-section-title">
                     <div class="stg-col-8 stg-offset-2">
                         <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">Programming Works Gallery</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">Discover modern web projects that combine outstanding design with high performance</p>
+                            <h2 data-appear="fade-up" data-unload="fade-up">My Services</h2>
+                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">
+                                Professional digital solutions tailored to your needs</p>
                         </div>
                     </div>
                 </div>
-                <!-- Portfolio Carousel -->
-                <div class="swiper bringer-carousel stg-bottom-gap" data-appear="fade-up" data-unload="fade-up" data-delay="200" data-tp-centered="0">
-                    <div class="swiper-wrapper">
-                        <!-- Card Item 03 -->
-                        <div class="bringer-block bringer-portfolio-card swiper-slide">
-                            <img class="bringer-lazy" src="img\null.png" data-src="img/portfolio/portfolio03.jpg" alt="Web Portfolio" width="1200" height="1200">
-                            </div>
-                            <div class="bringer-portfolio-card-footer">
-                                <div class="bringer-portfolio-card-title">
-                                    <span class="bringer-meta">Web Development</span>
-                                    <h6>Web Project</h6>
+                <!-- Services Grid -->
+                <div class="bringer-portfolio-grid" data-appear="fade-up" data-unload="fade-up" data-delay="200">
+                    <div class="stg-row" style="justify-content: center; gap: 40px;">
+                        <!-- Web Development Card -->
+                        <div class="stg-col-5 stg-tp-col-6 stg-m-col-10" style="max-width: 450px;">
+                            <a href="web-projects.html" style="display: block; text-decoration: none; color: inherit;">
+                                <div class="bringer-block bringer-portfolio-card"
+                                    style="text-align: center; padding: 40px 30px; display: flex; flex-direction: column; align-items: center;">
+                                    <div
+                                        style="background: linear-gradient(135deg, rgba(127, 90, 240, 0.15) 0%, rgba(127, 90, 240, 0.05) 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; width: 100%; height: 180px; margin-bottom: 24px;">
+                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none"
+                                            stroke="rgba(127, 90, 240, 0.8)" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <polyline points="16 18 22 12 16 6"></polyline>
+                                            <polyline points="8 6 2 12 8 18"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span
+                                        style="color: rgba(127, 90, 240, 0.8); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">Service</span>
+                                    <h6 style="font-size: 20px; margin-top: 8px; margin-bottom: 12px;">Web Development
+                                    </h6>
+                                    <p style="color: rgba(224, 224, 224, 0.7); font-size: 14px; line-height: 1.6;">
+                                        Modern, responsive websites built with the latest technologies for optimal
+                                        performance.</p>
+                                    <div
+                                        style="margin-top: 20px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #7f5af0 0%, #2cb67d 100%); display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                                            <polyline points="7 7 17 7 17 17"></polyline>
+                                        </svg>
+                                    </div>
                                 </div>
-                                <span class="bringer-icon bringer-icon-explore"></span>
-                            </div>
-                            <a href="portfolio.html"></a>
-                        </div><!-- .bringer-portfolio-card -->
+                            </a>
+                        </div>
+                        <!-- Designs Card -->
+                        <div class="stg-col-5 stg-tp-col-6 stg-m-col-10" style="max-width: 450px;">
+                            <a href="https://instagram.com/creative_mulham" target="_blank"
+                                style="display: block; text-decoration: none; color: inherit;">
+                                <div class="bringer-block bringer-portfolio-card"
+                                    style="text-align: center; padding: 40px 30px; display: flex; flex-direction: column; align-items: center;">
+                                    <div
+                                        style="background: linear-gradient(135deg, rgba(127, 90, 240, 0.15) 0%, rgba(127, 90, 240, 0.05) 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; width: 100%; height: 180px; margin-bottom: 24px;">
+                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none"
+                                            stroke="rgba(127, 90, 240, 0.8)" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <circle cx="12" cy="12" r="6"></circle>
+                                            <circle cx="12" cy="12" r="2"></circle>
+                                        </svg>
+                                    </div>
+                                    <span
+                                        style="color: rgba(127, 90, 240, 0.8); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">Service</span>
+                                    <h6 style="font-size: 20px; margin-top: 8px; margin-bottom: 12px;">Designs</h6>
+                                    <p style="color: rgba(224, 224, 224, 0.7); font-size: 14px; line-height: 1.6;">
+                                        Creative branding, UI/UX design, and visual identity systems that make your
+                                        business stand out.</p>
+                                    <div
+                                        style="margin-top: 20px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #7f5af0 0%, #2cb67d 100%); display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                                            <polyline points="7 7 17 7 17 17"></polyline>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <!-- Pagination -->
-                    <div class="swiper-pagination bringer-dots"></div>
-                </div><!-- .bringer-portfolio-carousel -->
+                </div><!-- .bringer-portfolio-grid -->
             </section>
+
+            <!-- Portfolio Modal -->
+            <div class="bringer-portfolio-modal" id="portfolioModal">
+                <div class="bringer-modal-overlay"></div>
+                <div class="bringer-modal-content">
+                    <button class="bringer-modal-close" aria-label="Close modal">
+                        <span class="bringer-icon bringer-icon-close"></span>
+                    </button>
+                    <div class="bringer-modal-image">
+                        <img src="" alt="Portfolio Image" id="modalImage">
+                    </div>
+                    <div class="bringer-modal-info">
+                        <span class="bringer-modal-category" id="modalCategory"></span>
+                        <h3 class="bringer-modal-title" id="modalTitle"></h3>
+                        <p class="bringer-modal-description" id="modalDescription"></p>
+                    </div>
+                </div>
+            </div><!-- .bringer-portfolio-modal -->
 
         </div><!-- .stg-container -->
 
@@ -257,29 +715,29 @@
                     <div class="stg-row" data-stagger-appear="fade-left" data-stagger-delay="100">
                         <div class="stg-col-5 stg-tp-col-12 stg-tp-bottom-gap-l">
                             <div class="bringer-info-widget">
-                                <a href="portfolio.html" class="bringer-logo footer-logo">
-                                    <img src="img\logo.png" alt="bringer." width="66" height="18">
+                                <a href="index.html" class="bringer-logo footer-logo">
+                                    <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
                                 </a>
-                                <div class="bringer-info-description">I’m a passionate designer and web developer who believes in the power of creativity. I help creative minds build a strong online presence that showcases their work and tells their story.</div>
+                                <div class="bringer-info-description">I’m a passionate designer and web developer who
+                                    believes in the power of creativity. I help creative minds build a strong online
+                                    presence that showcases their work and tells their story.</div>
                                 <span class="bringer-label">Follow me:</span>
                                 <ul class="bringer-socials-list" data-stagger-appear="fade-up" data-stagger-delay="75">
                                     <li>
-                                        <a href="https://discord.gg/your-invite" target="_blank" class="bringer-socials-discord">
+                                        <a href="https://discord.com/users/uncle.trippy" target="_blank"
+                                            class="bringer-socials-discord">
                                             <i></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://www.instagram.com/yourusername" target="_blank" class="bringer-socials-instagram">
+                                        <a href="https://www.instagram.com/trii2py" target="_blank"
+                                            class="bringer-socials-instagram">
                                             <i></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://wa.me/yourphonenumber" target="_blank" class="bringer-socials-whatsapp">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="bringer-socials-linkedin">
+                                        <a href="https://www.linkedin.com/in/mulham-ibrahim" target="_blank"
+                                            class="bringer-socials-linkedin">
                                             <i></i>
                                         </a>
                                     </li>
@@ -291,7 +749,7 @@
             </div><!-- .bringer-footer-widgets -->
 
         </footer>
-	</main>
+    </main>
 
     <!-- Right Click Protection Block -->
     <div class="bringer-rcp-wrap">
@@ -312,4 +770,5 @@
     <script src="js\classes.js"></script>
     <script src="js\main.js"></script>
 </body>
+
 </html>

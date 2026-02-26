@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Page Title -->
-    <title>Mulham Portfolio</title>
+    <title>Mulham Portfolio | Creative Designer & Web Developer</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Mulham Portfolio - Creative Designer & Web Developer. I help businesses achieve their goals through stunning design and cutting-edge web development.">
+    <meta name="keywords"
+        content="Mulham, Portfolio, Web Design, Graphic Design, UI/UX, Branding, Web Development, Creative Designer">
+    <meta name="author" content="Mulham">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mulham Portfolio | Creative Designer & Web Developer">
+    <meta property="og:description"
+        content="I help businesses achieve their goals through stunning design and cutting-edge web development.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mulham.design">
+    <meta property="og:image" content="img/mulham_icon.png">
 
     <!-- Google Fonts -->
     <link href="..\..\css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
@@ -20,18 +36,1281 @@
 
     <!-- Favicon -->
     <link rel="icon" href="img\favicon.png" sizes="32x32">
+
+    <!-- CV Preview Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+
+    <!-- CV Preview Styles -->
+    <style>
+        /* CV Preview Section */
+        .cv-preview-section {
+            padding: 40px 0 !important;
+            background: transparent;
+            margin-top: 40px !important;
+            scroll-margin-top: 100px;
+            /* Account for sticky header */
+            position: relative;
+        }
+
+        .cv-preview-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 50%, rgba(13, 17, 23, 0.6) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 30% at 30% 30%, rgba(127, 90, 240, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cv-preview-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cv-preview-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .code-editor {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 16px 70px rgba(0, 0, 0, 0.5);
+        }
+
+        .editor-header {
+            background: #21262d;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .window-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .btn-close {
+            background: #f85149;
+        }
+
+        .btn-minimize {
+            background: #f0883e;
+        }
+
+        .btn-maximize {
+            background: #3fb950;
+        }
+
+        .file-tabs {
+            display: flex;
+            gap: 4px;
+            margin-left: 16px;
+        }
+
+        .file-tab {
+            background: #161b22;
+            padding: 6px 16px;
+            border-radius: 6px 6px 0 0;
+            color: #c9d1d9;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #30363d;
+            border-bottom: none;
+        }
+
+        .file-tab-icon {
+            color: #f0883e;
+        }
+
+        .editor-body {
+            display: flex;
+            overflow: visible;
+        }
+
+        .line-numbers {
+            background: #161b22;
+            padding: 20px 0;
+            text-align: right;
+            color: #484f58;
+            font-size: 14px;
+            line-height: 1.6;
+            user-select: none;
+            min-width: 50px;
+            border-right: 1px solid #21262d;
+            position: relative;
+        }
+
+        .line-number {
+            padding: 0 12px;
+        }
+
+        .code-content {
+            flex: 1;
+            padding: 20px;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-height: none;
+            height: auto;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #c9d1d9;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        /* Custom scrollbar for code content only */
+        .code-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .code-content::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+
+        .code-content::-webkit-scrollbar-thumb {
+            background: #7f5af0;
+            border-radius: 4px;
+        }
+
+        .code-content::-webkit-scrollbar-thumb:hover {
+            background: #6d4cdb;
+        }
+
+        /* Syntax highlighting */
+        .keyword {
+            color: #ff7b72;
+        }
+
+        .string {
+            color: #a5d6ff;
+        }
+
+        .comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+
+        .function {
+            color: #d2a8ff;
+        }
+
+        .variable {
+            color: #ffa657;
+        }
+
+        .property {
+            color: #79c0ff;
+        }
+
+        .number {
+            color: #79c0ff;
+        }
+
+        .operator {
+            color: #ff7b72;
+        }
+
+        .bracket {
+            color: #c9d1d9;
+        }
+
+        .class-name {
+            color: #7ee787;
+        }
+
+        .punctuation {
+            color: #c9d1d9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #8b949e;
+        }
+
+        /* CV View Toggle Buttons */
+        .cv-toggle-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(200, 200, 200, 0.6);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .cv-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        .cv-toggle-btn.active {
+            background: linear-gradient(135deg, rgba(127, 90, 240, 0.3) 0%, rgba(44, 182, 125, 0.2) 100%);
+            border-color: rgba(127, 90, 240, 0.4);
+            color: #e0e0e0;
+        }
+
+        /* CV Text View */
+        .cv-text-view {
+            padding: 0 !important;
+        }
+
+        .cv-text-content {
+            padding: 32px 40px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #c9d1d9;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .cv-text-content h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .cv-text-content .cv-subtitle {
+            font-size: 14px;
+            color: rgba(127, 90, 240, 0.9);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .cv-text-content .cv-contact {
+            font-size: 13px;
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+
+        .cv-text-content hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 20px 0;
+        }
+
+        .cv-text-content h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #7ee787;
+            margin: 24px 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cv-text-content h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin: 16px 0 8px 0;
+        }
+
+        .cv-text-content p {
+            margin: 0 0 8px 0;
+            color: #b0b8c4;
+        }
+
+        .cv-text-content ul {
+            margin: 8px 0 16px 20px;
+            padding: 0;
+        }
+
+        .cv-text-content ul li {
+            margin-bottom: 4px;
+            color: #b0b8c4;
+            position: relative;
+        }
+
+        .cv-text-content ul li::marker {
+            color: rgba(127, 90, 240, 0.6);
+        }
+
+        .cv-text-content strong {
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        .run-section {
+            margin: 24px 0 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .run-btn {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .run-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(46, 160, 67, 0.4);
+        }
+
+        .run-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .run-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header/Navbar Improvements */
+        /* Logo - Outside navbar, on the left, larger */
+        .bringer-header-lp {
+            position: fixed !important;
+            left: 40px !important;
+            top: 20px !important;
+            z-index: 112 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        #bringer-header.is-sticky~.bringer-header-lp,
+        body:has(#bringer-header.is-sticky) .bringer-header-lp {
+            top: 15px !important;
+        }
+
+        .bringer-logo {
+            display: block !important;
+        }
+
+        .bringer-logo img {
+            height: 64px !important;
+            width: auto !important;
+            transition: transform 0.3s ease !important;
+        }
+
+        .bringer-logo:hover img {
+            transform: scale(1.1) !important;
+        }
+
+        /* Header/Navbar - Without logo, centered */
+        #bringer-header {
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+            padding: 0 40px !important;
+            border-radius: 16px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            max-width: 720px !important;
+            min-width: auto !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+
+        #bringer-header.is-sticky {
+            top: 12px !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .bringer-header-inner {
+            padding: 16px 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+
+        /* Hide logo inside header */
+        .bringer-header-inner .bringer-header-lp {
+            display: none !important;
+        }
+
+        .bringer-header-mp {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        nav.bringer-nav {
+            width: 100% !important;
+        }
+
+        nav.bringer-nav ul.main-menu {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.main-menu li {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.main-menu li a {
+            position: relative;
+            padding: 10px 22px !important;
+            border-radius: 8px;
+            transition: all 0.2s ease !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            color: rgba(224, 224, 224, 0.8) !important;
+            white-space: nowrap !important;
+        }
+
+        ul.main-menu li a:hover {
+            background: rgba(127, 90, 240, 0.12) !important;
+            color: var(--bringer-s-heading) !important;
+        }
+
+        ul.main-menu li.current-menu-item>a {
+            background: rgba(127, 90, 240, 0.18) !important;
+            color: var(--bringer-s-heading) !important;
+            font-weight: 500 !important;
+        }
+
+        /* Hide active menu indicator (the circular gradient effect) */
+        .bringer-active-menu-ind {
+            display: none !important;
+        }
+
+        .bringer-active-menu-ind::before {
+            display: none !important;
+        }
+
+        /* Unified Background for All Sections */
+        main#bringer-main {
+            position: relative;
+        }
+
+        main#bringer-main::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(127, 90, 240, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 50% at 80% 80%, rgba(44, 182, 125, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 50% 50%, rgba(127, 90, 240, 0.04) 0%, transparent 60%),
+                var(--bringer-s-body-bg);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main#bringer-main>.stg-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section - Unified with other sections */
+        .bringer-hero-block {
+            padding: 10px 0 20px !important;
+            min-height: auto !important;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: transparent !important;
+        }
+
+        .bringer-hero-type05 {
+            position: relative;
+            background: transparent !important;
+        }
+
+        /* Remove special hero background gradients */
+        .bringer-hero-type05::before {
+            display: none !important;
+        }
+
+        .bringer-hero-type05>.stg-row {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bringer-page-title {
+            font-size: clamp(40px, 5.5vw, 80px) !important;
+            line-height: 1.1 !important;
+            margin-bottom: 20px !important;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, #c0c0c0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700 !important;
+            letter-spacing: -0.03em;
+        }
+
+        /* Hero accent text */
+        .hero-accent-text {
+            background: linear-gradient(135deg, #7f5af0 0%, #2cb67d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hero label badge */
+        .hero-label-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(127, 90, 240, 0.1);
+            border: 1px solid rgba(127, 90, 240, 0.25);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(127, 90, 240, 0.9);
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-label-badge .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2cb67d;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.3);
+            }
+        }
+
+        .bringer-large-text {
+            font-size: clamp(16px, 2vw, 20px) !important;
+            line-height: 1.7 !important;
+            color: rgba(224, 224, 224, 0.85) !important;
+            margin-top: 0 !important;
+            margin-bottom: 24px !important;
+            max-width: 540px;
+        }
+
+        /* Hero image styling */
+        .bringer-hero-media-wrap {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(127, 90, 240, 0.1);
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .bringer-hero-media-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(13, 17, 23, 0.4) 100%);
+            pointer-events: none;
+            border-radius: 24px;
+            z-index: 1;
+        }
+
+        .bringer-hero-type05>.stg-row {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Smooth transition between sections - Unified background */
+        section {
+            position: relative;
+            background: transparent !important;
+            overflow: visible;
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+        }
+
+        section:first-child {
+            padding-top: 10px !important;
+        }
+
+        /* Remove all section-specific backgrounds */
+        section::before,
+        section::after {
+            display: none !important;
+        }
+
+        /* Ensure all sections use the unified background */
+        section:first-child,
+        section:nth-child(even),
+        section:nth-child(odd) {
+            background: transparent !important;
+        }
+
+        section:first-child::before,
+        section:first-child::after {
+            display: none !important;
+        }
+
+        /* Ensure content is above background layers */
+        section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero section should not have any special background */
+        .bringer-hero-block,
+        .bringer-hero-type05 {
+            background: transparent !important;
+        }
+
+        .bringer-hero-block::before,
+        .bringer-hero-block::after,
+        .bringer-hero-type05::before,
+        .bringer-hero-type05::after {
+            display: none !important;
+        }
+
+        .bringer-page-title {
+            font-size: clamp(36px, 5vw, 72px) !important;
+            line-height: 1.2 !important;
+            margin-bottom: 24px !important;
+            background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700 !important;
+            letter-spacing: -0.02em;
+        }
+
+        .bringer-large-text {
+            font-size: clamp(16px, 2vw, 20px) !important;
+            line-height: 1.7 !important;
+            color: rgba(224, 224, 224, 0.9) !important;
+            margin-top: 20px !important;
+            margin-bottom: 40px !important;
+            max-width: 600px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        /* Section title spacing */
+        .bringer-section-title h2 {
+            margin-bottom: 20px !important;
+        }
+
+        .bringer-section-title .bringer-large-text {
+            margin-top: 0 !important;
+        }
+
+        /* Portfolio Section Styles */
+        .bringer-portfolio-card {
+            max-height: 400px;
+            overflow: hidden;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .bringer-portfolio-card-image {
+            max-height: 280px;
+            overflow: hidden;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .bringer-portfolio-card-image img {
+            max-width: 100%;
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .bringer-portfolio-card:hover .bringer-portfolio-card-image img {
+            transform: scale(1.05);
+        }
+
+        .bringer-portfolio-card-footer {
+            padding: 20px;
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 0 0 16px 16px;
+        }
+
+        /* Portfolio cards layout - better spacing */
+        .bringer-portfolio-grid .stg-row {
+            gap: 30px !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            justify-content: center !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+        }
+
+        .bringer-portfolio-grid .stg-col-4 {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+            max-width: calc(50% - 15px) !important;
+            flex: 0 0 calc(50% - 15px) !important;
+            margin: 0 !important;
+        }
+
+        .bringer-portfolio-card {
+            width: 100% !important;
+            height: 100% !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .bringer-portfolio-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 12px 40px rgba(127, 90, 240, 0.3) !important;
+        }
+
+        .bringer-portfolio-card-image[style*="background"] {
+            height: 280px !important;
+            border-radius: 16px 16px 0 0 !important;
+        }
+
+        @media (max-width: 768px) {
+            .bringer-portfolio-grid .stg-row {
+                gap: 20px !important;
+            }
+
+            .bringer-portfolio-grid .stg-col-4 {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+            }
+        }
+
+        /* Web Design Card Icon Styling */
+        .bringer-portfolio-card-image svg {
+            color: #7F5AF0;
+            /* Purple color similar to mulham_logo.png */
+            filter: drop-shadow(0 2px 8px rgba(127, 90, 240, 0.3));
+        }
+
+        .bringer-portfolio-card:hover .bringer-portfolio-card-image svg {
+            color: #9D7AFF;
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .bringer-hero-media-wrap {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        /* Remove background image */
+        .bringer-hero-media-wrap[data-bg-src] {
+            background-image: none !important;
+            background: transparent !important;
+        }
+
+        /* Remove border gradient */
+        .bringer-hero-media-wrap::before {
+            display: none !important;
+        }
+
+        .bringer-hero-media-wrap img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            display: block;
+            transition: transform 0.5s ease;
+            object-fit: cover;
+        }
+
+        .bringer-hero-media-wrap:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Button Improvements */
+        .bringer-button {
+            margin-right: 16px !important;
+            margin-bottom: 16px !important;
+            padding: 16px 32px !important;
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow: 0 4px 20px rgba(127, 90, 240, 0.2) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bringer-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .bringer-button:hover::before {
+            left: 100%;
+        }
+
+        .bringer-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 30px rgba(127, 90, 240, 0.3) !important;
+        }
+
+        .bringer-button.is-secondary {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: var(--bringer-s-heading) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .bringer-button.is-secondary:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(127, 90, 240, 0.5) !important;
+            box-shadow: 0 8px 30px rgba(127, 90, 240, 0.2) !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            /* Hide desktop header, show mobile header */
+            .bringer-header-inner {
+                display: none !important;
+            }
+
+            .bringer-mobile-header-inner {
+                display: flex !important;
+            }
+
+            /* Hide the outside fixed logo (mobile header has its own) */
+            .bringer-header-lp {
+                display: none !important;
+            }
+
+            /* Prevent horizontal scroll from marquee/scrolling sections */
+            body,
+            html {
+                overflow-x: hidden !important;
+            }
+
+            /* Logo Mobile */
+            .bringer-header-lp {
+                left: 20px !important;
+                top: 15px !important;
+            }
+
+            .bringer-logo img {
+                height: 36px !important;
+            }
+
+            /* Header Mobile */
+            #bringer-header {
+                padding: 0 16px !important;
+                max-width: calc(100% - 80px) !important;
+                border-radius: 12px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
+
+            .bringer-header-inner {
+                padding: 8px 0 !important;
+            }
+
+            nav.bringer-nav ul.main-menu {
+                gap: 2px !important;
+            }
+
+            ul.main-menu li a {
+                padding: 5px 10px !important;
+                font-size: 12px !important;
+            }
+
+            /* Hero Mobile */
+            .bringer-hero-block {
+                padding: 40px 0 30px !important;
+                min-height: auto !important;
+            }
+
+            .bringer-page-title {
+                margin-bottom: 20px !important;
+            }
+
+            .bringer-large-text {
+                margin-bottom: 32px !important;
+            }
+
+            .bringer-button {
+                width: 100%;
+                margin-right: 0 !important;
+                justify-content: center;
+            }
+
+            .bringer-hero-media-wrap {
+                margin-top: 40px;
+            }
+
+            /* CV Section Mobile */
+            .cv-preview-section {
+                padding: 40px 0;
+            }
+
+            .code-content {
+                font-size: 11px;
+                padding: 12px;
+            }
+
+            .line-numbers {
+                min-width: 35px;
+                font-size: 11px;
+            }
+
+            .file-tabs .file-tab {
+                display: none;
+            }
+
+            .file-tabs {
+                justify-content: flex-end !important;
+            }
+
+            .run-section {
+                flex-direction: column;
+            }
+
+            .run-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Portfolio Mobile */
+            .bringer-portfolio-card {
+                max-height: 300px !important;
+            }
+
+            .bringer-portfolio-card-image {
+                max-height: 200px !important;
+            }
+
+            .bringer-portfolio-card-image img {
+                max-height: 200px !important;
+            }
+
+            .bringer-portfolio-card-footer {
+                padding: 12px 16px !important;
+            }
+
+            .bringer-portfolio-card-title h6 {
+                font-size: 14px !important;
+            }
+
+            .bringer-meta {
+                font-size: 11px !important;
+            }
+
+            /* Portfolio Mobile */
+            .bringer-portfolio-card {
+                max-height: 300px;
+            }
+
+            .bringer-portfolio-card-image {
+                max-height: 200px;
+            }
+
+            .bringer-portfolio-card-image img {
+                max-height: 200px;
+            }
+
+            .bringer-portfolio-card-footer {
+                padding: 12px 16px;
+            }
+
+            .bringer-portfolio-card-title h6 {
+                font-size: 14px;
+            }
+
+            .bringer-meta {
+                font-size: 11px;
+            }
+
+            /* Step Cards Mobile - Shrink icon areas */
+            .bringer-step-icon {
+                aspect-ratio: auto !important;
+                height: 140px !important;
+                width: 100% !important;
+                border-radius: 16px !important;
+            }
+
+            .bringer-step-icon svg {
+                width: 72px !important;
+                height: 72px !important;
+            }
+
+            /* Tighter step section spacing */
+            .stg-row.stg-bottom-gap.stg-valign-middle {
+                gap: 0 !important;
+            }
+
+            /* Service/block cards - reduce padding on mobile */
+            .bringer-block {
+                padding: 20px 16px !important;
+            }
+
+            /* Aspect square cards - remove forced square ratio on mobile */
+            .stg-aspect-square {
+                aspect-ratio: auto !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            /* Logo Mobile Small */
+            .bringer-header-lp {
+                left: 16px !important;
+                top: 12px !important;
+            }
+
+            .bringer-logo img {
+                height: 32px !important;
+            }
+
+            /* Header Mobile Small */
+            #bringer-header {
+                padding: 0 12px !important;
+                max-width: calc(100% - 60px) !important;
+                border-radius: 10px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
+
+            .bringer-header-inner {
+                padding: 6px 0 !important;
+            }
+
+            nav.bringer-nav ul.main-menu {
+                gap: 1px !important;
+            }
+
+            ul.main-menu li a {
+                padding: 4px 8px !important;
+                font-size: 11px !important;
+            }
+
+            .bringer-page-title {
+                font-size: 28px !important;
+            }
+
+            .bringer-large-text {
+                font-size: 15px !important;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Reduce section title spacing */
+        .bringer-section-title {
+            margin-bottom: 30px !important;
+        }
+
+        .bringer-section-title h2 {
+            margin-bottom: 8px !important;
+        }
+
+        /* Tighter title block */
+        .bringer-title-block {
+            padding: 28px !important;
+        }
+
+        /* Service cards hover effect */
+        .bringer-block {
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        }
+
+        .bringer-block:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 12px 40px rgba(127, 90, 240, 0.12) !important;
+        }
+
+        /* Desktop: Make service cards smaller */
+        @media (min-width: 769px) {
+            .bringer-grid-3cols {
+                max-width: 960px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                grid-gap: 16px !important;
+            }
+
+            .bringer-grid-3cols .stg-aspect-square {
+                aspect-ratio: auto !important;
+            }
+
+            .bringer-grid-3cols .bringer-block {
+                padding: 22px !important;
+            }
+
+            .bringer-grid-3cols .bringer-block h5 {
+                font-size: 16px !important;
+                margin-bottom: 6px !important;
+            }
+
+            .bringer-grid-3cols .bringer-block p {
+                font-size: 13px !important;
+                line-height: 1.55 !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Preloader -->
+    <div id="loader-wrapper">
+        <div id="loader">
+            <div class="loader-spinner"></div>
+        </div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <style>
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+        }
+
+        #loader {
+            display: block;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -30px 0 0 -30px;
+            z-index: 100001;
+            transition: all 0.3s ease-out;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #7f5af0;
+            border-right-color: #2cb67d;
+            animation: loaderSpin 0.8s linear infinite;
+        }
+
+        @keyframes loaderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loader-wrapper .loader-section {
+            position: fixed;
+            top: 0;
+            width: 51%;
+            height: 100%;
+            z-index: 100000;
+        }
+
+        #loader-wrapper .loader-section.section-left {
+            left: 0;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        #loader-wrapper .loader-section.section-right {
+            right: 0;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .loaded #loader {
+            opacity: 0;
+            transition: all 0.3s ease-out;
+        }
+
+        .loaded #loader-wrapper .loader-section.section-left {
+            transform: translateX(-100%);
+            transition: all 0.5s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .loaded #loader-wrapper .loader-section.section-right {
+            transform: translateX(100%);
+            transition: all 0.5s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .loaded #loader-wrapper {
+            visibility: hidden;
+            transition: all 0.3s 0.8s ease-out;
+            transform: translateY(-100%);
+        }
+    </style>
+    <script>
+        function hidePreloader() { if (!document.body.classList.contains('loaded')) document.body.classList.add('loaded'); }
+        document.addEventListener('DOMContentLoaded', function () { setTimeout(hidePreloader, 400); });
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 2000);
+    </script>
+
+    <!-- Logo - Outside navbar, on the left -->
+    <div class="bringer-header-lp">
+        <a href="index.html" class="bringer-logo">
+            <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
+        </a>
+    </div>
+
     <!-- Header -->
     <header id="bringer-header" class="is-frosted is-sticky" data-appear="fade-down" data-unload="fade-up">
         <!-- Desktop Header -->
         <div class="bringer-header-inner">
-            <!-- Header Logo -->
-            <div class="bringer-header-lp">
-                <a href="portfolio.html" class="bringer-logo">
-                    <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
-                </a>
-            </div>
             <!-- Main Menu -->
             <div class="bringer-header-mp">
                 <nav class="bringer-nav">
@@ -51,7 +1330,7 @@
         </div>
         <!-- Mobile Header -->
         <div class="bringer-mobile-header-inner">
-            <a href="portfolio.html" class="bringer-logo">
+            <a href="index.html" class="bringer-logo">
                 <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
             </a>
             <a href="#" class="bringer-mobile-menu-toggler">
@@ -73,66 +1352,120 @@
                     <div class="stg-row">
                         <div class="stg-col-6">
                             <!-- Title Cell -->
-                            <div class="bringer-block bringer-title-block" data-appear="fade-right" data-unload="fade-left">
+                            <div class="bringer-block bringer-title-block" data-appear="fade-right"
+                                data-unload="fade-left">
+                                <!-- Badge -->
+                                <div class="hero-label-badge" data-appear="fade-down" data-delay="50">
+                                    <span class="badge-dot"></span>
+                                    Available for Work
+                                </div>
                                 <!-- Title -->
-                                <h1 class="bringer-page-title">Bring your Product to the Next Level!</h1>
-                                <!-- Description -->
-                                <p class="bringer-large-text">We help creative agencies, designers, and other creative people showcase their work and connect with potential clients.</p>
+                                <h1 class="bringer-page-title">I Build <span class="hero-accent-text">Digital
+                                        Brands</span> & Web Experiences</h1>
+                                <p class="bringer-large-text">Founder of Plasma Agency — helping businesses grow through
+                                    strategic branding, high-performance websites, and data-driven marketing.</p>
                             </div>
 
-                            <div class="stg-row">
-                                <div class="stg-col-8 stg-tp-col-8 stg-m-col-8">
-                                    <!-- Small Image -->
-                                    <img src="img\home\home05-hero01.jpg" alt="Product" data-appear="fade-up" data-delay="100" data-unload="zoom-out">
-                                </div>
-                                <div class="stg-col-4 stg-tp-col-4 stg-m-col-4">
-                                    <!-- Button -->
-                                    <a href="contacts.html" class="bringer-square-button" data-appear="zoom-in" data-delay="200" data-unload="zoom-out">
-                                        <span class="bringer-icon bringer-icon-explore"></span>
-                                    </a>
-                                </div>
+                            <!-- Buttons -->
+                            <div style="display: flex; flex-wrap: wrap; gap: 12px;" data-appear="fade-up"
+                                data-delay="200" data-unload="fade-down">
+                                <a href="contacts.html" class="bringer-button" data-appear="zoom-in" data-delay="200"
+                                    data-unload="zoom-out">
+                                    <span class="bringer-button-label">Get in Touch</span>
+                                    <span class="bringer-button-icon"><i
+                                            class="bringer-icon bringer-icon-explore"></i></span>
+                                </a>
+                                <a href="#cv-preview" class="bringer-button is-secondary" data-appear="zoom-in"
+                                    data-delay="300" data-unload="zoom-out">
+                                    <span class="bringer-button-label">Preview My CV</span>
+                                    <span class="bringer-button-icon"><i
+                                            class="bringer-icon bringer-icon-explore"></i></span>
+                                </a>
                             </div>
                         </div>
                         <!-- Main Image Column -->
-                        <div class="stg-col-6 bringer-hero-media-wrap stg-tp-hide stg-m-hide" data-bg-src="img/home/home05-hero02.jpg" data-appear="fade-left" data-unload="fade-right">
-                            <!-- Media -->
-                            <img src="img\home\home05-hero03.jpg" alt="Bring your Product" data-appear="fade-up" data-delay="100">
+                        <div class="stg-col-6">
+                            <div class="bringer-hero-media-wrap" data-appear="fade-left" data-unload="fade-right">
+                                <!-- Media -->
+                                <img src="img\mulham_ph.jpg" alt="Mulham - Creative Designer & Web Developer"
+                                    data-appear="fade-up" data-delay="100">
+                            </div>
                         </div>
                     </div>
                 </div><!-- .bringer-hero-block -->
             </section>
 
             <!-- Section: Steps -->
-            <section class="backlight-top">
-                <div class="stg-bottom-gap-l">
-                    <h2 data-appear="fade-up" data-unload="fade-up">4 Steps to Brand Brilliance</h2>
+            <section>
+                <div class="stg-row bringer-section-title">
+                    <div class="stg-col-8 stg-offset-2">
+                        <div class="align-center">
+                            <h2 data-appear="fade-up" data-unload="fade-up">4 Steps to Digital Brilliance</h2>
+                        </div>
+                    </div>
                 </div>
                 <!-- Step 01 Row -->
                 <div class="stg-row stg-bottom-gap stg-valign-middle stg-m-bottom-gap-l" data-unload="fade-left">
                     <div class="stg-col-3 stg-offset-3 stg-tp-col-6 stg-m-bottom-gap" data-appear="fade-right">
                         <div class="bringer-parallax-media">
-                            <img class="bringer-lazy" src="img\null.png" data-src="img/home/step01.jpg" alt="Step 01" width="960" height="960">
+                            <div class="bringer-step-icon"
+                                style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(127, 90, 240, 0.2) 0%, rgba(44, 182, 125, 0.2) 100%); border-radius: 24px;">
+                                <svg width="120" height="120" viewBox="0 0 120 120" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="60" cy="60" r="45" stroke="#7f5af0" stroke-width="2" fill="none" />
+                                    <circle cx="60" cy="45" r="12" stroke="#2cb67d" stroke-width="2" fill="none" />
+                                    <path d="M40 75 Q60 65 80 75" stroke="#7f5af0" stroke-width="2" fill="none" />
+                                    <circle cx="45" cy="42" r="3" fill="#7f5af0" />
+                                    <circle cx="75" cy="42" r="3" fill="#7f5af0" />
+                                    <path d="M52 50 L58 55 L68 45" stroke="#2cb67d" stroke-width="2" fill="none" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     <div class="stg-col-6 stg-tp-col-6" data-appear="fade-right" data-delay="100">
                         <span class="bringer-label">Step 01</span>
-                        <h4>Unleash Your Vision</h4>
-                        <p><span class="bringer-highlight">Deep Dive Discovery:</span> We'll immerse ourselves in your world, exploring your unique story, target audience, and aspirations. This is where we uncover the heart of your brand and unearth the spark that sets you apart.</p>
-                        <p><span class="bringer-highlight">Strategic Exploration:</span> We'll conduct thorough research, analyze your competitors, and identify opportunities to position your brand for success. This is where we map out the terrain and chart a course toward your goals.</p>
+                        <h4>Define the Vision</h4>
+                        <p><span class="bringer-highlight">Deep Discovery:</span> I dive into your world to understand
+                            your story, your audience, and your goals. This is where we uncover the core of your idea
+                            and define what truly sets you apart.</p>
+                        <p><span class="bringer-highlight">Strategic Research:</span> I analyze your market,
+                            competitors, and opportunities to position your digital presence for real impact. Every
+                            project starts with clarity and direction.</p>
                     </div>
                 </div>
                 <!-- Step 02 Row -->
-                <div class="stg-row stg-bottom-gap stg-valign-middle stg-tp-row-reverse stg-m-bottom-gap-l" data-unload="fade-right">
+                <div class="stg-row stg-bottom-gap stg-valign-middle stg-tp-row-reverse stg-m-bottom-gap-l"
+                    data-unload="fade-right">
                     <div class="stg-col-3 stg-tp-col-6 stg-m-bottom-gap" data-appear="fade-left">
                         <div class="bringer-parallax-media">
-                            <img class="bringer-lazy" src="img\null.png" data-src="img/home/step02.jpg" alt="Step 02" width="960" height="960">
+                            <div class="bringer-step-icon"
+                                style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(127, 90, 240, 0.2) 0%, rgba(44, 182, 125, 0.2) 100%); border-radius: 24px;">
+                                <svg width="120" height="120" viewBox="0 0 120 120" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="25" y="30" width="70" height="50" rx="4" stroke="#7f5af0" stroke-width="2"
+                                        fill="none" />
+                                    <line x1="25" y1="42" x2="95" y2="42" stroke="#2cb67d" stroke-width="2" />
+                                    <circle cx="33" cy="36" r="2" fill="#7f5af0" />
+                                    <circle cx="41" cy="36" r="2" fill="#7f5af0" />
+                                    <circle cx="49" cy="36" r="2" fill="#7f5af0" />
+                                    <rect x="35" y="50" width="20" height="20" rx="2" stroke="#2cb67d" stroke-width="2"
+                                        fill="none" />
+                                    <line x1="62" y1="55" x2="85" y2="55" stroke="#7f5af0" stroke-width="2" />
+                                    <line x1="62" y1="62" x2="78" y2="62" stroke="#7f5af0" stroke-width="2" />
+                                    <line x1="62" y1="69" x2="82" y2="69" stroke="#7f5af0" stroke-width="2" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     <div class="stg-col-6 stg-tp-col-6" data-appear="fade-left" data-delay="100">
                         <span class="bringer-label">Step 02</span>
-                        <h4>Tailor-Made Masterpiece</h4>
-                        <p><span class="bringer-highlight">Brand Identity Creation:</span> We'll craft a visual identity that embodies your essence, from logo design to color palettes to typography. This is where we create a cohesive look and feel that resonates with your audience.</p>
-                        <p><span class="bringer-highlight">Compelling Content Development:</span> We'll weave captivating stories and craft messaging that speaks to the hearts and minds of your customers. This is where we create content that connects, engages, and inspires action.</p>
+                        <h4>Design with Purpose</h4>
+                        <p><span class="bringer-highlight">Visual Identity & UI Design:</span> I craft clean, meaningful
+                            design systems — from logo foundations to typography, color palettes, and intuitive
+                            interfaces. Every element is intentional.</p>
+                        <p><span class="bringer-highlight">Content & Structure:</span> I shape messaging and structure
+                            to ensure your website doesn't just look good — it communicates clearly and guides users
+                            naturally.</p>
                     </div>
                     <div class="stg-col-3"><!-- Empty Column --></div>
                 </div>
@@ -140,28 +1473,65 @@
                 <div class="stg-row stg-bottom-gap stg-valign-middle stg-m-bottom-gap-l" data-unload="fade-left">
                     <div class="stg-col-3 stg-offset-3 stg-tp-col-6 stg-m-bottom-gap" data-appear="fade-right">
                         <div class="bringer-parallax-media">
-                            <img class="bringer-lazy" src="img\null.png" data-src="img/home/step03.jpg" alt="Step 03" width="960" height="960">
+                            <div class="bringer-step-icon"
+                                style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(127, 90, 240, 0.2) 0%, rgba(44, 182, 125, 0.2) 100%); border-radius: 24px;">
+                                <svg width="120" height="120" viewBox="0 0 120 120" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M30 85 L30 45 L50 45 L50 85" stroke="#7f5af0" stroke-width="2"
+                                        fill="none" />
+                                    <path d="M55 85 L55 55 L75 55 L75 85" stroke="#2cb67d" stroke-width="2"
+                                        fill="none" />
+                                    <path d="M80 85 L80 35 L100 35 L100 85" stroke="#7f5af0" stroke-width="2"
+                                        fill="none" />
+                                    <circle cx="40" cy="50" r="5" fill="#2cb67d" />
+                                    <circle cx="65" cy="60" r="5" fill="#7f5af0" />
+                                    <circle cx="90" cy="40" r="5" fill="#2cb67d" />
+                                    <line x1="30" y1="85" x2="100" y2="85" stroke="#7f5af0" stroke-width="2" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     <div class="stg-col-6 stg-tp-col-6" data-appear="fade-right" data-delay="100">
                         <span class="bringer-label">Step 03</span>
-                        <h4>Flawless Execution</h4>
-                        <p><span class="bringer-highlight">Expert Collaboration:</span> We'll work hand-in-hand with you, ensuring every detail aligns with your vision and exceeds expectations. This is where we bring together our diverse expertise to create something truly remarkable.</p>
-                        <p><span class="bringer-highlight">Meticulous Production:</span> We'll handle the technical aspects with precision, from seamless web development to high-quality graphic production. This is where we turn concepts into tangible realities, pixel-perfect and ready to shine.</p>
+                        <h4>Build with Precision</h4>
+                        <p><span class="bringer-highlight">Focused Collaboration:</span> I work closely with you to
+                            refine details and align every decision with your vision and objectives.</p>
+                        <p><span class="bringer-highlight">Performance-Driven Development:</span> From responsive
+                            layouts to optimized code, I turn concepts into fast, scalable, and pixel-perfect digital
+                            experiences.</p>
                     </div>
                 </div>
                 <!-- Step 04 Row -->
                 <div class="stg-row stg-valign-middle stg-tp-row-reverse" data-unload="fade-right">
                     <div class="stg-col-3 stg-tp-col-6 stg-m-bottom-gap" data-appear="fade-left">
                         <div class="bringer-parallax-media">
-                            <img class="bringer-lazy" src="img\null.png" data-src="img/home/step04.jpg" alt="Step 04" width="960" height="960">
+                            <div class="bringer-step-icon"
+                                style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(127, 90, 240, 0.2) 0%, rgba(44, 182, 125, 0.2) 100%); border-radius: 24px;">
+                                <svg width="120" height="120" viewBox="0 0 120 120" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="60" cy="60" r="35" stroke="#7f5af0" stroke-width="2" fill="none" />
+                                    <path d="M60 30 L60 45" stroke="#2cb67d" stroke-width="2" />
+                                    <path d="M60 75 L60 90" stroke="#2cb67d" stroke-width="2" />
+                                    <path d="M30 60 L45 60" stroke="#2cb67d" stroke-width="2" />
+                                    <path d="M75 60 L90 60" stroke="#2cb67d" stroke-width="2" />
+                                    <polygon points="60,45 70,60 60,75 50,60" fill="#7f5af0" />
+                                    <circle cx="60" cy="60" r="8" fill="#2cb67d" />
+                                    <path d="M45 35 L35 25" stroke="#7f5af0" stroke-width="2" />
+                                    <path d="M75 35 L85 25" stroke="#7f5af0" stroke-width="2" />
+                                    <circle cx="30" cy="20" r="4" fill="#2cb67d" />
+                                    <circle cx="90" cy="20" r="4" fill="#2cb67d" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     <div class="stg-col-6 stg-tp-col-6" data-appear="fade-left" data-delay="100">
                         <span class="bringer-label">Step 04</span>
-                        <h4>Launch &amp; Beyond</h4>
-                        <p><span class="bringer-highlight">Strategic Launch:</span> We'll unveil your brand to the world with a tailored launch strategy that generates excitement and drives engagement. This is where we create a buzz and make your presence known.</p>
-                        <p><span class="bringer-highlight">Ongoing Optimization:</span> We'll monitor your progress, analyze data, and make continuous adjustments to ensure your brand stays ahead of the curve. This is where we embrace growth and adaptation.</p>
+                        <h4>Launch & Evolve</h4>
+                        <p><span class="bringer-highlight">Strategic Deployment:</span> I launch your project with a
+                            clear plan — ensuring smooth performance, strong first impressions, and technical stability.
+                        </p>
+                        <p><span class="bringer-highlight">Continuous Optimization:</span> Through testing, analytics,
+                            and refinement, I make sure your digital presence grows, adapts, and stays ahead.</p>
                     </div>
                     <div class="stg-col-3"><!-- Empty Column --></div>
                 </div>
@@ -177,7 +1547,7 @@
                             </li>
                             <li>
                                 <h2>Marketing</h2>
-                            </li> 
+                            </li>
                             <li>
                                 <h2>Graphic Design</h2>
                             </li>
@@ -193,42 +1563,59 @@
             </section>
 
             <!-- Section: Services -->
-            <section class="divider-bottom">
+            <section>
                 <!-- Section Title -->
                 <div class="stg-row bringer-section-title">
                     <div class="stg-col-8 stg-offset-2">
                         <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">Our Services</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">We offer a wide range of creative services to help businesses of all sizes achieve their goals. Our services include:</p>
+                            <h2 data-appear="fade-up" data-unload="fade-up">My Services</h2>
+                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">I
+                                offer a wide range of creative services to help businesses of all sizes achieve their
+                                goals:</p>
                         </div>
                     </div>
                 </div>
                 <!-- Services Grid -->
-                <div class="bringer-grid-3cols bringer-tp-grid-2cols" data-stagger-appear="fade-up" data-delay="100" data-stagger-delay="100" data-unload="fade-up">
+                <div class="bringer-grid-3cols bringer-tp-grid-2cols" data-stagger-appear="fade-up" data-delay="100"
+                    data-stagger-delay="100" data-unload="fade-up">
                     <div class="bringer-block stg-aspect-square stg-vertical-space-between">
                         <h5>Branding<span class="bringer-accent">.</span></h5>
-                        <p>Weave visual stories and craft strategic messaging that resonate at heartstrings, build unwavering trust, and turn customers into fervent brand champions.</p>
+                        <p>I build brands with intention. From strategic positioning to complete visual identity
+                            systems, I create brands that feel authentic, memorable, and built to last — not just look
+                            good.</p>
                     </div>
                     <div class="bringer-block stg-aspect-square stg-vertical-space-between">
-                        <h5>Marketing<span class="bringer-accent">.</span></h5>
-                        <p>Design data-driven campaigns that crackle with energy, ignite engagement like wildfire, and turn clicks into conversions. We're the storm that propels your brand.</p>
-                    </div>
-                    <div class="bringer-block stg-aspect-square stg-vertical-space-between">
-                        <h5>Graphic Design<span class="bringer-accent">.</span></h5>
-                        <p>Craft visual masterpieces that sing your brand's story in vibrant colors and captivating shapes. From logos that lodge in minds to images that make ideas sing.</p>
-                    </div>
-                    <div class="bringer-block stg-aspect-square stg-vertical-space-between">
-                        <h5>Web Design<span class="bringer-accent">.</span></h5>
-                        <p>Sculpt user-friendly websites that convert visitors into loyal devotees, seamlessly blending stunning aesthetics with intuitive navigation and experiences.</p>
-                    </div>
-                    <div class="bringer-block stg-aspect-square stg-vertical-space-between">
-                        <h5>Content Creation<span class="bringer-accent">.</span></h5>
-                        <p>Weave compelling narratives into blog posts, website copy, and social media content that resonate with your audience like a well-loved symphony.</p>
+                        <h5>Web Design & Development<span class="bringer-accent">.</span></h5>
+                        <p>I design and develop high-performing websites that blend aesthetics with functionality.
+                            Responsive, fast, and conversion-focused — built to transform visitors into real results.
+                        </p>
                     </div>
                     <div class="bringer-masked-block bringer-grid-more-masked">
-                        <div class="bringer-block stg-aspect-square stg-vertical-space-between is-accented bringer-masked-media">
-                            <h5>Explore All Services<span class="bringer-accent">.</span></h5>
-                            <p>I offer a wide range of creative services to help businesses of all sizes achieve their goals.</p>
+                        <div class="bringer-block stg-aspect-square stg-vertical-space-between bringer-masked-media">
+                            <h5>Graphic Design<span class="bringer-accent">.</span></h5>
+                            <p>I craft bold visual assets that communicate clearly and powerfully. Logos, social media
+                                visuals, marketing materials, and brand collateral — all designed with precision and
+                                purpose.</p>
+                        </div>
+                        <a href="https://www.instagram.com/creative_mulham" target="_blank"
+                            rel="noopener noreferrer"></a>
+                    </div>
+                    <div class="bringer-block stg-aspect-square stg-vertical-space-between">
+                        <h5>Marketing & Social Media<span class="bringer-accent">.</span></h5>
+                        <p>I create strategic, data-aware campaigns that grow visibility and drive engagement. From
+                            content planning to execution, I help brands show up consistently and confidently online.
+                        </p>
+                    </div>
+                    <div class="bringer-block stg-aspect-square stg-vertical-space-between">
+                        <h5>Photography & Video Editing<span class="bringer-accent">.</span></h5>
+                        <p>I capture visuals that tell stories — then refine them through professional editing and
+                            motion. Because strong branding doesn't just speak… it moves.</p>
+                    </div>
+                    <div class="bringer-masked-block bringer-grid-more-masked">
+                        <div
+                            class="bringer-block stg-aspect-square stg-vertical-space-between is-accented bringer-masked-media">
+                            <h5>Explore My Work<span class="bringer-accent">.</span></h5>
+                            <p>Discover my portfolio of creative projects and see how I bring ideas to life.</p>
                         </div>
                         <div class="bringer-masked-content at-bottom-right">
                             <span class="bringer-square-button is-secondary">
@@ -240,197 +1627,97 @@
                 </div>
             </section>
 
-            <!-- Section: What Makes Us Best -->
-            <section>
-                <!-- Section Title -->
+            <!-- Section: CV Preview -->
+            <section id="cv-preview" class="cv-preview-section">
                 <div class="stg-row bringer-section-title">
                     <div class="stg-col-8 stg-offset-2">
                         <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">What Makes Us Best</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">We are a passionate team of designers and developers who believe in the power of creativity. We help creative professionals create a strong online presence that showcases their work and tells their story.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Content Grid -->
-                <div class="bringer-grid-2cols bringer-tp-grid-1col" data-stagger-appear="zoom-in" data-stagger-delay="100" data-stagger-unload="fade-up">
-                    <!-- Card Item 01 -->
-                    <div class="bringer-block">
-                        <h4>We don't just design, we <span class="bringer-accent">unleash creative</span> firestorms<span class="bringer-accent">.</span></h4>
-                        <p>Tired of bland marketing and cookie-cutter websites? We infuse your brand with bold ideas and strategic brilliance, igniting campaigns that capture hearts and drive tangible results. Forget sparklers, we're here to light galaxies on fire.</p>
-                    </div><!-- .bringer-block -->
-                    
-                    <!-- Card Item 02 -->
-                    <div class="bringer-block">
-                        <h4>We <span class="bringer-accent">fuel creativity</span> with data, guide passion with precision<span class="bringer-accent">.</span></h4>
-                        <p>We're not just artistic dreamers, we're strategic alchemists. We blend data-driven insights with unbridled passion, ensuring your campaigns reach the right audience, hit the right chords, and deliver measurable results. Because passion without direction is a beautiful mess.</p>
-                    </div><!-- .bringer-block -->
-                    
-                    <!-- Card Item 03 -->
-                    <div class="bringer-block">
-                        <h4>We craft <span class="bringer-accent">emotional connections</span>, not just visuals and copy<span class="bringer-accent">.</span></h4>
-                        <p>We delve deeper than pixels and prose. We understand the human heart, the language of emotions. We weave stories that resonate, visuals that linger in minds, and content that sparks conversations. Because true connection is the foundation of brand loyalty.</p>
-                    </div><!-- .bringer-block -->
-
-                    <!-- Card Item 04 -->
-                    <div class="bringer-block">
-                        <h4>We don't just work with you, we become your <span class="bringer-accent">creative champions</span><span class="bringer-accent">.</span></h4>
-                        <p>We don't see clients, we see collaborators. We believe in building partnerships, in understanding your vision, and becoming an extension of your team. Your goals are our canvas, your success our masterpiece. We paint your dreams into reality, together.</p>
-                    </div><!-- .bringer-block -->
-                </div>
-            </section>
-
-            <!-- Section: Design Portfolio -->
-            <section>
-                <!-- Section Title -->
-                <div class="stg-row bringer-section-title">
-                    <div class="stg-col-8 stg-offset-2">
-                        <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">Design Portfolio</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">Explore a collection of creative design works that combine beauty and functionality</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Carousel -->
-                <div class="swiper bringer-carousel stg-bottom-gap" data-appear="fade-up" data-unload="fade-up" data-delay="200" data-tp-centered="0">
-                    <div class="swiper-wrapper">
-                        <!-- Card Item 03 -->
-                        <div class="bringer-block bringer-portfolio-card swiper-slide">
-                            <div class="bringer-portfolio-card-image">
-                                <img class="bringer-lazy" src="img\null.png" data-src="img/portfolio/portfolio03.jpg" alt="Design Portfolio" width="1200" height="1200">
+                            <h2 data-appear="fade-up" data-unload="fade-up">My CV</h2>
+                            <!-- Gradient arrow -->
+                            <div data-appear="fade-up" data-delay="150" style="margin-top: 16px;">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    style="animation: cvArrowBounce 2s ease-in-out infinite;">
+                                    <defs>
+                                        <linearGradient id="cvArrowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#7f5af0" />
+                                            <stop offset="100%" style="stop-color:#2cb67d" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M7 10l5 5 5-5" stroke="url(#cvArrowGrad)" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
                             </div>
-                            <div class="bringer-portfolio-card-footer">
-                                <div class="bringer-portfolio-card-title">
-                                    <span class="bringer-meta">Design</span>
-                                    <h6>Design Work</h6>
+                            <style>
+                                @keyframes cvArrowBounce {
+
+                                    0%,
+                                    100% {
+                                        transform: translateY(0);
+                                    }
+
+                                    50% {
+                                        transform: translateY(6px);
+                                    }
+                                }
+                            </style>
+                        </div>
+                    </div>
+                </div>
+                <div class="cv-preview-container">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="window-buttons">
+                                <div class="window-btn btn-close"></div>
+                                <div class="window-btn btn-minimize"></div>
+                                <div class="window-btn btn-maximize"></div>
+                            </div>
+                            <div class="file-tabs"
+                                style="flex: 1; display: flex; align-items: center; justify-content: space-between;">
+                                <div class="file-tab">
+                                    <span class="file-tab-icon">JS</span>
+                                    mulham_ibrahim_cv.js
                                 </div>
-                                <span class="bringer-icon bringer-icon-explore"></span>
-                            </div>
-                            <a href="portfolio.html"></a>
-                        </div><!-- .bringer-portfolio-card -->
-                    </div>
-                    <!-- Pagination -->
-                    <div class="swiper-pagination bringer-dots"></div>
-                </div><!-- .bringer-portfolio-carousel -->
-                <div class="align-center" data-appear="fade-up" data-delay="300" data-unload="zoom-out">
-                    <a href="portfolio.html" class="bringer-button">View Design Portfolio</a>
-                </div>
-            </section>
-
-            <!-- Section: Web Portfolio -->
-            <section>
-                <!-- Section Title -->
-                <div class="stg-row bringer-section-title">
-                    <div class="stg-col-8 stg-offset-2">
-                        <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">Web Portfolio</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">Discover modern web projects that combine outstanding design with high performance</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Carousel -->
-                <div class="swiper bringer-carousel stg-bottom-gap" data-appear="fade-up" data-unload="fade-up" data-delay="200" data-tp-centered="0">
-                    <div class="swiper-wrapper">
-                        <!-- Card Item 03 -->
-                        <div class="bringer-block bringer-portfolio-card swiper-slide">
-                            <div class="bringer-portfolio-card-image">
-                                <img class="bringer-lazy" src="img\null.png" data-src="img/portfolio/portfolio03.jpg" alt="Web Portfolio" width="1200" height="1200">
-                            </div>
-                            <div class="bringer-portfolio-card-footer">
-                                <div class="bringer-portfolio-card-title">
-                                    <span class="bringer-meta">Web Development</span>
-                                    <h6>Web Project</h6>
+                                <div class="cv-view-toggle" style="display: flex; gap: 4px; margin-right: 8px;">
+                                    <button class="cv-toggle-btn" id="btnCodeView" onclick="switchCVView('code')">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <polyline points="16 18 22 12 16 6"></polyline>
+                                            <polyline points="8 6 2 12 8 18"></polyline>
+                                        </svg>
+                                        Code
+                                    </button>
+                                    <button class="cv-toggle-btn active" id="btnTextView"
+                                        onclick="switchCVView('text')">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        </svg>
+                                        Text
+                                    </button>
                                 </div>
-                                <span class="bringer-icon bringer-icon-explore"></span>
                             </div>
-                            <a href="portfolio.html"></a>
-                        </div><!-- .bringer-portfolio-card -->
-                    </div>
-                    <!-- Pagination -->
-                    <div class="swiper-pagination bringer-dots"></div>
-                </div><!-- .bringer-portfolio-carousel -->
-                <div class="align-center" data-appear="fade-up" data-delay="300" data-unload="zoom-out">
-                    <a href="portfolio.html" class="bringer-button">View Web Portfolio</a>
-                </div>
-            </section>
-
-            <!-- Section: Testimonials  -->
-            <section>
-                <!-- Section Title -->
-                <div class="stg-row bringer-section-title">
-                    <div class="stg-col-8 stg-offset-2">
-                        <div class="align-center">
-                            <h2 data-appear="fade-up" data-unload="fade-up">What Our Clients Say</h2>
-                            <p class="bringer-large-text" data-appear="fade-up" data-unload="fade-up" data-delay="100">Read what our clients have to say about our work.</p>
+                        </div>
+                        <div class="editor-body" id="codeView" style="display: none;">
+                            <div class="line-numbers" id="lineNumbers"></div>
+                            <div class="code-content" id="codeContent">
+                                <div class="loading">Loading CV...</div>
+                            </div>
+                        </div>
+                        <div class="editor-body cv-text-view" id="textView">
+                            <div class="cv-text-content" id="textContent">
+                                <div class="loading">Loading CV...</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Testimonials Grid -->
-                <div class="bringer-grid-2cols stg-bottom-gap" data-stagger-appear="zoom-in" data-stagger-delay="100" data-stagger-unload="zoom-out">
-                    <!-- Card Item -->
-                    <div class="bringer-block bringer-tetimonials-card">
-                        <div class="bringer-tetimonials-card-descr">
-                            "Before working with Bringer, our brand felt lost in the crowd. They not only gave us a stunning logo and website, but they also crafted a brand story that resonated with our customers. Now, we're seeing a surge in loyalty and engagement, and it all started with a spark!"
-                        </div>
-                        <div class="bringer-tetimonials-card-footer">
-                            <div class="bringer-tetimonials-card-name">
-                                <h6>Sarah Janson</h6>
-                                <span class="bringer-meta">CEO of Bloom Eco-Spa</span>
-                            </div>
-                            <div class="bringer-tetimonials-card-rate">
-                                <span class="bringer-tetimonials-stars5"></span>
-                            </div>
-                        </div>
-                    </div><!-- .bringer-tetimonials-card -->
-                                        
-                    <!-- Card Item -->
-                    <div class="bringer-block bringer-tetimonials-card">
-                        <div class="bringer-tetimonials-card-descr">
-                            "We knew we needed a digital boost, but we had no idea where to start. Bringer came in like a team of data-driven superheroes! They built targeted campaigns that reached our ideal audience, and the results were incredible. Our leads skyrocketed, and our conversion rates doubled. They truly understand the power of digital!"
-                        </div>
-                        <div class="bringer-tetimonials-card-footer">
-                            <div class="bringer-tetimonials-card-name">
-                                <h6>Michael Kaper</h6>
-                                <span class="bringer-meta">VP of Marketing, Tech Inc.</span>
-                            </div>
-                            <div class="bringer-tetimonials-card-rate">
-                                <span class="bringer-tetimonials-stars5"></span>
-                            </div>
-                        </div>
-                    </div><!-- .bringer-tetimonials-card -->
-                                        
-                    <!-- Card Item -->
-                    <div class="bringer-block bringer-tetimonials-card">
-                        <div class="bringer-tetimonials-card-descr">
-                            "Words cannot express how pleased we are with the visuals Bringer created for our brand. From the captivating infographics to the social media graphics that pop off the screen, they've injected an emotional punch into our communication that resonates deeply with our audience. Now, every visual tells our story with stunning clarity."
-                        </div>
-                        <div class="bringer-tetimonials-card-footer">
-                            <div class="bringer-tetimonials-card-name">
-                                <h6>Anna Larson</h6>
-                                <span class="bringer-meta">Founder of StoryCraft Books</span>
-                            </div>
-                            <div class="bringer-tetimonials-card-rate">
-                                <span class="bringer-tetimonials-stars4"></span>
-                            </div>
-                        </div>
-                    </div><!-- .bringer-tetimonials-card -->
-                                        
-                    <!-- Card Item -->
-                    <div class="bringer-block bringer-tetimonials-card">
-                        <div class="bringer-tetimonials-card-descr">
-                            "Our old website was a confusing maze. Bringer transformed it into a user-friendly paradise! They crafted a streamlined navigation that makes finding information a breeze, and the mobile experience is flawless. The result? Increased traffic, higher engagement, and happier customers. They've truly reimagined the digital experience."
-                        </div>
-                        <div class="bringer-tetimonials-card-footer">
-                            <div class="bringer-tetimonials-card-name">
-                                <h6>David Madison</h6>
-                                <span class="bringer-meta">CTO of GreenTech Solutions</span>
-                            </div>
-                            <div class="bringer-tetimonials-card-rate">
-                                <span class="bringer-tetimonials-stars4"></span>
-                            </div>
-                        </div>
-                    </div><!-- .bringer-tetimonials-card -->
-                </div><!-- .bringer-grid -->
 
+
+                </div>
             </section>
 
         </div><!-- .stg-container -->
@@ -446,26 +1733,27 @@
                                 <a href="index.html" class="bringer-logo footer-logo">
                                     <img src="img\logo.png" alt="Mulham Portfolio" width="66" height="18">
                                 </a>
-                                <div class="bringer-info-description">I’m a passionate designer and web developer who believes in the power of creativity. I help creative minds build a strong online presence that showcases their work and tells their story.</div>
+                                <div class="bringer-info-description">Founder of Plasma Agency, delivering branding
+                                    systems, responsive websites, and data-driven digital marketing strategies.
+                                    Combining business acumen, technical execution, and market positioning to enhance
+                                    visibility, engagement, and operational efficiency.</div>
                                 <span class="bringer-label">Follow me:</span>
                                 <ul class="bringer-socials-list" data-stagger-appear="fade-up" data-stagger-delay="75">
                                     <li>
-                                        <a href="https://discord.gg/your-invite" target="_blank" class="bringer-socials-discord">
+                                        <a href="https://discord.com/users/uncle.trippy" target="_blank"
+                                            class="bringer-socials-discord">
                                             <i></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://www.instagram.com/yourusername" target="_blank" class="bringer-socials-instagram">
+                                        <a href="https://www.instagram.com/trii2py" target="_blank"
+                                            class="bringer-socials-instagram">
                                             <i></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://wa.me/yourphonenumber" target="_blank" class="bringer-socials-whatsapp">
-                                            <i></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="bringer-socials-linkedin">
+                                        <a href="https://www.linkedin.com/in/mulham-ibrahim" target="_blank"
+                                            class="bringer-socials-linkedin">
                                             <i></i>
                                         </a>
                                     </li>
@@ -477,7 +1765,7 @@
             </div><!-- .bringer-footer-widgets -->
 
         </footer>
-	</main>
+    </main>
 
     <!-- Right Click Protection Block -->
     <div class="bringer-rcp-wrap">
@@ -497,5 +1785,497 @@
     <script src="js\st-core.js"></script>
     <script src="js\classes.js"></script>
     <script src="js\main.js"></script>
+
+    <!-- CV Preview Script -->
+    <script>
+        let markdownContent = '';
+        let jsCodeContent = '';
+
+        // Convert markdown to styled text with code colors
+        function convertMarkdownToJS(markdown) {
+            // Display the markdown text with code-like syntax highlighting
+            let styledText = '';
+            const lines = markdown.split('\n');
+
+            // Helper to escape HTML special characters
+            function escapeHtml(text) {
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return text.replace(/[&<>"']/g, m => map[m]);
+            }
+
+            // Helper to process inline markdown (bold, links)
+            function processInlineMarkdown(text) {
+                // First escape HTML
+                let result = escapeHtml(text);
+                // Then apply markdown formatting
+                result = result.replace(/\*\*([^*]+)\*\*/g, '<span class="string">$1</span>');
+                result = result.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<span class="string">$1</span> <span class="comment">// $2</span>');
+                return result;
+            }
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmed = line.trim();
+
+                // Empty lines
+                if (trimmed === '') {
+                    styledText += '\n';
+                    continue;
+                }
+
+                // Horizontal rules
+                if (trimmed === '---') {
+                    styledText += '<span class="comment">// ' + '─'.repeat(50) + '</span>\n';
+                    continue;
+                }
+
+                // Main title (#)
+                if (trimmed.startsWith('# ')) {
+                    const title = processInlineMarkdown(trimmed.substring(2));
+                    styledText += `<span class="class-name">${title}</span>\n`;
+                }
+                // Section headers (##)
+                else if (trimmed.startsWith('## ')) {
+                    const section = processInlineMarkdown(trimmed.substring(3));
+                    styledText += `\n<span class="keyword">##</span> <span class="function">${section}</span>\n`;
+                }
+                // Subsection headers (###)
+                else if (trimmed.startsWith('### ')) {
+                    const subsection = processInlineMarkdown(trimmed.substring(4));
+                    styledText += `\n<span class="keyword">###</span> <span class="variable">${subsection}</span>\n`;
+                }
+                // List items (-)
+                else if (trimmed.startsWith('- ')) {
+                    const content = processInlineMarkdown(trimmed.substring(2));
+                    styledText += `<span class="operator">-</span> ${content}\n`;
+                }
+                // Bold text line (standalone)
+                else if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+                    const content = escapeHtml(trimmed.replace(/\*\*/g, ''));
+                    styledText += `<span class="string">${content}</span>\n`;
+                }
+                // Website line
+                else if (trimmed.startsWith('Website:')) {
+                    const websiteMatch = trimmed.match(/Website:\s*\[([^\]]+)\]\(([^\)]+)\)/);
+                    if (websiteMatch) {
+                        styledText += `<span class="property">Website:</span> <span class="string">${escapeHtml(websiteMatch[1])}</span> <span class="comment">// ${websiteMatch[2]}</span>\n`;
+                    } else {
+                        styledText += `${processInlineMarkdown(trimmed)}\n`;
+                    }
+                }
+                // Regular text
+                else {
+                    const content = processInlineMarkdown(line);
+                    styledText += `${content}\n`;
+                }
+            }
+
+            return styledText;
+        }
+
+        // CV Content - Embedded directly
+        const cvMarkdownContent = `# MULHAM IBRAHIM
+**Digital Marketing Strategist | Front-End Developer | Founder**
+
+Damascus, Syria
+mulhamlol790@gmail.com
+
+---
+
+## PROFESSIONAL SUMMARY
+
+Business-oriented digital professional and founder with hands-on experience building and scaling digital brands, web platforms, and marketing operations. Founder of **Plasma Agency**, delivering branding systems, responsive websites, and data-driven digital marketing strategies across multiple industries.
+
+Combines business acumen, technical execution, and market positioning to translate business goals into impactful digital solutions that enhance visibility, engagement, and operational efficiency.
+
+---
+
+## CORE SKILLS
+
+- **Web Development:** HTML, CSS, JavaScript, Responsive Design, UI/UX Principles  
+- **Branding & Marketing:** Branding Systems, Visual Identity, Digital Marketing Strategy, Campaign Execution  
+- **Social & SEO:** Social Media Growth, Content Strategy, SEO Fundamentals, Performance Analytics  
+- **Business & Project Management:** Business Development, Client Acquisition, Multi-Client Project Coordination, Workflow Optimization  
+- **Tools:** Microsoft Office Suite
+
+---
+
+## BUSINESS & COMMUNICATION EXPERTISE
+
+- Align digital strategies with measurable business growth outcomes  
+- Translate technical concepts into actionable business value for clients  
+- Define brand identity, tone, and digital positioning  
+- Manage project timelines, deliverables, and operational workflows
+
+---
+
+## PROFESSIONAL EXPERIENCE
+
+### **Plasma Agency | Damascus, Syria**
+**Founder & Digital Marketing Manager | 2022 – Present**
+
+- Founded and scaled a digital agency delivering branding, website development, and social media management  
+- Designed service offerings, pricing structures, and client acquisition strategies  
+- Delivered **30+ complete branding identity systems** across multiple industries  
+- Developed responsive corporate websites aligned with client objectives  
+- Led social media growth strategies, achieving **5,000+ followers**  
+- Analyzed engagement metrics to optimize campaign ROI  
+- Managed multiple client projects concurrently while maintaining quality standards
+
+---
+
+### **Freelance & Contract Projects | Remote**
+**Front-End Web Developer | 2022 – Present**
+
+- Designed and developed responsive websites for private companies  
+- Improved UX/UI structure and visual consistency  
+- Optimized websites for performance, mobile responsiveness, and SEO readiness  
+- Translated business requirements into functional front-end implementations
+
+---
+
+### **Administrative Support**
+**Booking Assistant**
+
+- Managed scheduling, coordination, and client communication  
+- Improved workflow efficiency and organizational processes
+
+---
+
+## SELECTED PROJECTS
+
+### **Cureox Medical Software** – Digital Healthcare Solutions Platform
+- Contributed to website structure and digital presence  
+- Supported branding alignment and marketing positioning  
+Website: [cureox.com](https://cureox.com)
+
+### **Ghiath Bourhani Trading Co** – Commercial Trading & Business Services
+- Designed and developed corporate website  
+- Strengthened digital visibility and structured online presence  
+Website: [brhani.com](https://brhani.com)
+
+---
+
+## KEY ACHIEVEMENTS
+
+- Delivered **30+ full branding identity systems**  
+- Built and launched multiple corporate websites  
+- Grew agency social media presence to **5,000+ followers**  
+- Founded and operated a successful digital agency at an early career stage
+
+---
+
+## EDUCATION
+
+**Bachelor of Business Administration (BBA)**  
+Higher Institute of Business Administration | 2023 – Present  
+Focus: Business Operations, Marketing Principles, Organizational Strategy
+
+---
+
+## LANGUAGES
+
+- Arabic: Native  
+- English: Full Professional Proficiency
+
+---
+
+## AVAILABILITY
+
+Open to Digital Marketing, Business Development, and Front-End Development roles  
+**Work Preferences:** Remote | Hybrid | On-site`;
+
+        // Load CV content
+        function loadCV() {
+            const codeContent = document.getElementById('codeContent');
+            const textContent = document.getElementById('textContent');
+            if (!codeContent) {
+                console.error('CV content element not found');
+                return;
+            }
+
+            try {
+                // Use embedded content
+                markdownContent = cvMarkdownContent;
+
+                // Convert markdown to styled text format (code view)
+                jsCodeContent = convertMarkdownToJS(markdownContent);
+                codeContent.innerHTML = jsCodeContent;
+
+                // Convert markdown to readable HTML (text view)
+                if (textContent) {
+                    textContent.innerHTML = convertMarkdownToHTML(markdownContent);
+                }
+
+                // Generate line numbers
+                updateLineNumbers();
+
+                // Enable run button
+                const runBtn = document.getElementById('runBtn');
+                if (runBtn) {
+                    runBtn.disabled = false;
+                }
+
+                console.log('CV loaded successfully');
+            } catch (error) {
+                console.error('Error loading CV:', error);
+                codeContent.innerHTML =
+                    '<span class="comment">// Error processing CV content</span>\n' +
+                    `<span class="comment">// ${error.message}</span>`;
+            }
+        }
+
+        // Convert markdown to readable HTML for text view
+        function convertMarkdownToHTML(markdown) {
+            let html = '';
+            const lines = markdown.split('\n');
+            let inList = false;
+
+            function escapeHtml(text) {
+                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+                return text.replace(/[&<>"']/g, m => map[m]);
+            }
+
+            function processInline(text) {
+                let result = escapeHtml(text);
+                // Bold
+                result = result.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+                // Links
+                result = result.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank" style="color: rgba(127, 90, 240, 0.9); text-decoration: none;">$1</a>');
+                return result;
+            }
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmed = line.trim();
+
+                // Close list if not a list item
+                if (inList && !trimmed.startsWith('- ')) {
+                    html += '</ul>';
+                    inList = false;
+                }
+
+                if (trimmed === '') {
+                    continue;
+                }
+
+                if (trimmed === '---') {
+                    html += '<hr>';
+                    continue;
+                }
+
+                if (trimmed.startsWith('# ')) {
+                    html += `<h1>${processInline(trimmed.substring(2))}</h1>`;
+                } else if (trimmed.startsWith('## ')) {
+                    html += `<h2>${processInline(trimmed.substring(3))}</h2>`;
+                } else if (trimmed.startsWith('### ')) {
+                    html += `<h3>${processInline(trimmed.substring(4))}</h3>`;
+                } else if (trimmed.startsWith('- ')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    html += `<li>${processInline(trimmed.substring(2))}</li>`;
+                } else {
+                    html += `<p>${processInline(trimmed)}</p>`;
+                }
+            }
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        // Switch between Code and Text views
+        function switchCVView(view) {
+            const codeView = document.getElementById('codeView');
+            const textView = document.getElementById('textView');
+            const btnCode = document.getElementById('btnCodeView');
+            const btnText = document.getElementById('btnTextView');
+
+            if (view === 'code') {
+                codeView.style.display = '';
+                textView.style.display = 'none';
+                btnCode.classList.add('active');
+                btnText.classList.remove('active');
+            } else {
+                codeView.style.display = 'none';
+                textView.style.display = '';
+                btnCode.classList.remove('active');
+                btnText.classList.add('active');
+            }
+        }
+
+        // Update line numbers
+        function updateLineNumbers() {
+            const codeContent = document.getElementById('codeContent');
+            const lineNumbers = document.getElementById('lineNumbers');
+
+            if (!codeContent || !lineNumbers) return;
+
+            lineNumbers.innerHTML = '';
+
+            // Count all lines
+            const text = codeContent.innerText || codeContent.textContent;
+            const lines = text.split('\n');
+
+            // Generate line numbers for all lines
+            for (let i = 1; i <= lines.length; i++) {
+                const lineNum = document.createElement('div');
+                lineNum.className = 'line-number';
+                lineNum.textContent = i;
+                lineNumbers.appendChild(lineNum);
+            }
+        }
+
+        // Convert markdown to formatted text for PDF
+        function formatMarkdownForPDF(markdown) {
+            const lines = markdown.split('\n');
+            const formatted = [];
+
+            for (let line of lines) {
+                const trimmed = line.trim();
+
+                if (trimmed === '---' || trimmed === '') {
+                    formatted.push('');
+                    continue;
+                }
+
+                if (trimmed.startsWith('# ')) {
+                    // Main title
+                    formatted.push(trimmed.substring(2).replace(/\*\*/g, ''));
+                    formatted.push('');
+                } else if (trimmed.startsWith('## ')) {
+                    // Section header
+                    formatted.push('');
+                    formatted.push(trimmed.substring(3).replace(/\*\*/g, ''));
+                    formatted.push('');
+                } else if (trimmed.startsWith('### ')) {
+                    // Subsection
+                    formatted.push(trimmed.substring(4).replace(/\*\*/g, ''));
+                } else if (trimmed.startsWith('- ')) {
+                    // List item
+                    let content = trimmed.substring(2);
+                    content = content.replace(/\*\*/g, '');
+                    content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
+                    formatted.push('  • ' + content);
+                } else if (trimmed) {
+                    // Regular text
+                    let content = trimmed;
+                    content = content.replace(/\*\*/g, '');
+                    content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
+                    formatted.push(content);
+                }
+            }
+
+            return formatted.join('\n');
+        }
+
+        // Download CV as PDF
+        async function downloadCVAsPDF() {
+            if (!markdownContent) {
+                alert('CV content not loaded yet. Please wait...');
+                return;
+            }
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Set font
+                doc.setFont('helvetica');
+                doc.setFontSize(11);
+
+                // Format markdown for PDF
+                const formattedText = formatMarkdownForPDF(markdownContent);
+
+                // Split text into lines that fit the page
+                const maxWidth = 180; // mm
+                const lines = doc.splitTextToSize(formattedText, maxWidth);
+
+                let y = 20;
+                const lineHeight = 6;
+                const pageHeight = 280;
+                const margin = 15;
+
+                // Process each line
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+
+                    // Check if we need a new page
+                    if (y > pageHeight - 10) {
+                        doc.addPage();
+                        y = 20;
+                    }
+
+                    // Check if this is a header (starts with uppercase and no bullet)
+                    if (line.trim() && !line.trim().startsWith('•') &&
+                        line === line.toUpperCase() && line.length < 50) {
+                        doc.setFontSize(14);
+                        doc.setFont('helvetica', 'bold');
+                        y += 3;
+                    } else if (line.trim().startsWith('•')) {
+                        doc.setFontSize(10);
+                        doc.setFont('helvetica', 'normal');
+                    } else {
+                        doc.setFontSize(11);
+                        doc.setFont('helvetica', 'normal');
+                    }
+
+                    doc.text(line, margin, y);
+                    y += lineHeight;
+                }
+
+                // Save PDF
+                doc.save('Mulham_CV.pdf');
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+            }
+        }
+
+        // Load CV when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if CV section exists
+            const cvSection = document.getElementById('cv-preview');
+            const codeContent = document.getElementById('codeContent');
+
+            if (cvSection && codeContent) {
+                // Load CV immediately with small delay to ensure DOM is ready
+                setTimeout(() => {
+                    loadCV();
+                }, 100);
+
+                // Also load when section comes into view (lazy load as backup)
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !markdownContent) {
+                            loadCV();
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                observer.observe(cvSection);
+            } else {
+                console.error('CV section or content element not found');
+            }
+        });
+
+        // Also try to load on window load as backup
+        window.addEventListener('load', function () {
+            const codeContent = document.getElementById('codeContent');
+            if (codeContent && !markdownContent) {
+                setTimeout(() => {
+                    loadCV();
+                }, 200);
+            }
+        });
+    </script>
 </body>
+
 </html>

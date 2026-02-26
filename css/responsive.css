@@ -135,8 +135,16 @@
         min-height: 44px;
         justify-content: space-between;
         align-items: center;
-        padding: var(--bringer-header-spacing) var(--stg-gap);
+        padding: 15px 20px;
         width: 100%;
+    }
+    #bringer-header {
+        left: 20px;
+        right: 20px;
+        top: 15px;
+        transform: none;
+        max-width: none;
+        border-radius: 25px;
     }
     .bringer-mobile-menu-toggler {
         width: 44px;
@@ -600,6 +608,21 @@
         margin-bottom: var(--stg-large-gap);
     }
 
+    /* Type 05 */
+    .bringer-hero-type05 {
+        min-height: auto;
+        padding: 100px 0;
+    }
+    .bringer-hero-type05 .stg-row {
+        gap: 50px;
+    }
+    .bringer-hero-type05 .bringer-title-block .bringer-page-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+    .bringer-hero-type05 .bringer-hero-media-wrap {
+        max-width: 350px;
+    }
+
     /* Type 07 */
     .bringer-hero-type07 .bringer-page-title {
         font-size: var(--bringer-t-h2-fs);
@@ -857,7 +880,12 @@
         max-width: 100%;
     }
     .bringer-mobile-header-inner {
-        padding: var(--bringer-header-spacing) var(--stg-gap);
+        padding: 12px 15px;
+    }
+    #bringer-header {
+        left: 10px;
+        right: 10px;
+        border-radius: 20px;
     }
 
     /* === Grid === */
@@ -1016,13 +1044,38 @@
     }
 
     /* Type 05 */
-    .bringer-hero-type05 a.bringer-square-button span.bringer-icon {
-        width: 32px;
-        height: 32px;
+    .bringer-hero-type05 {
+        min-height: auto;
+        padding: 80px 0 60px;
+    }
+    .bringer-hero-type05 .stg-row {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+    .bringer-hero-type05 .bringer-title-block {
+        text-align: center;
+        align-items: center;
+        gap: 24px;
+    }
+    .bringer-hero-type05 .bringer-title-block .bringer-page-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+    .bringer-hero-type05 .bringer-title-block .bringer-large-text {
+        font-size: 1rem;
+        max-width: 100%;
+        text-align: center;
     }
     .bringer-hero-type05 .stg-col-6 {
         width: 100% !important;
-        margin-bottom: var(--stg-gap);
+    }
+    .bringer-hero-type05 .bringer-hero-media-wrap {
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 3/4;
+    }
+    .bringer-hero-type05 a.bringer-square-button span.bringer-icon {
+        width: 32px;
+        height: 32px;
     }
     .bringer-hero-type05 .bringer-page-title {
         font-size: var(--bringer-t-h1-fs);
@@ -1317,12 +1370,22 @@
 
     /* === Mobile Portfolio Sections === */
     .bringer-portfolio-card {
-        margin-bottom: var(--stg-gap);
+        margin-bottom: 0;
+    }
+    .bringer-portfolio-card:hover {
+        transform: none;
+    }
+    .bringer-portfolio-card-image {
+        aspect-ratio: 4/3;
     }
     .bringer-portfolio-card-image img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
+    }
+    .bringer-portfolio-grid .stg-col-4,
+    .bringer-portfolio-grid .stg-col-6 {
+        margin-bottom: var(--stg-gap);
     }
     .bringer-carousel {
         overflow: visible;
@@ -1337,6 +1400,28 @@
     .bringer-section-title .bringer-large-text {
         font-size: var(--bringer-t-large-fs);
         line-height: 1.5em;
+    }
+
+    /* === Portfolio Modal === */
+    .bringer-modal-content {
+        flex-direction: column;
+        max-width: 95%;
+        max-height: 90vh;
+    }
+    .bringer-modal-image {
+        flex: 0 0 auto;
+        max-width: 100%;
+        width: 100%;
+        aspect-ratio: 16/9;
+    }
+    .bringer-modal-info {
+        padding: 24px;
+    }
+    .bringer-modal-title {
+        font-size: 1.5rem;
+    }
+    .bringer-modal-description {
+        font-size: 0.9rem;
     }
     .bringer-button {
         padding: 12px 24px;

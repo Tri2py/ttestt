@@ -121,6 +121,20 @@ html {
    min-height: 100%;
    max-width: 100vw;
 }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bringer-s-body-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bringer-s-accent);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bringer-button-hover-bg);
+}
 body {
     overflow-x: hidden;
     position: relative;
@@ -132,6 +146,8 @@ body {
     font-weight: var(--bringer-t-content-fw);
     color: var(--bringer-s-text);
     background: var(--bringer-s-body-bg);
+    scrollbar-width: thin;
+    scrollbar-color: var(--bringer-s-accent) var(--bringer-s-body-bg);
 }
 body.is-unloading {
     pointer-events: none;
@@ -642,17 +658,25 @@ input[type="submit"],
 button:not([class*='pswp']),
 a.bringer-button {
     font-family: var(--bringer-t-content-ff);
-    font-weight: var(--bringer-t-content-fw);
+    font-weight: 600;
     font-size: var(--bringer-t-button-fs);
     line-height: 1;
-    padding: var(--bringer-button-spacing);
-    display: inline-block;
+    padding: 16px 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     color: var(--bringer-s-accented-text);
     background: var(--bringer-s-accent);
-    border-radius: var(--bringer-button-br);
-    border: 1px solid var(--bringer-s-border-accent);
-    transition: background-color 0.3s;
+    border-radius: 50px;
+    border: none;
+    transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
+}
+a.bringer-button:hover {
+    background: #9d7af5;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(127, 90, 240, 0.3);
 }
 a.bringer-button.is-secondary,
 .bringer-square-button.is-secondary {
@@ -741,50 +765,44 @@ form.bringer-contact-form.is-busy .bringer-form-content {
     04. HEADER
     ========== */
 #bringer-header {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+    position: fixed;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: calc(100% - 40px);
     z-index: 111;
-    background: var(--bringer-s-nav);
+    background: rgba(18, 18, 18, 0.85);
+    border-radius: 50px;
+    padding: 0 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 #bringer-header.is-sticky {
-    position: fixed;
+    top: 10px;
+    background: rgba(18, 18, 18, 0.95);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
 }
 #bringer-header.is-frosted {
-    -webkit-backdrop-filter: saturate(150%) blur(12px);
-    backdrop-filter: saturate(150%) blur(12px);
+    -webkit-backdrop-filter: saturate(150%) blur(20px);
+    backdrop-filter: saturate(150%) blur(20px);
 }
 #bringer-header::after {
-    content: '';
-    width: 100%;
-    height: 1px;
-    display: block;
-    background: var(--bringer-c-border-gradient);
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    display: none;
 }
 #bringer-header::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient( 0deg, transparent 25%, var(--bringer-s-body-bg) 100%);
-    display: block;
+    display: none;
 }
 .no-header-border #bringer-header::after {
     display: none;
 }
 .bringer-header-inner {
-    padding: var(--bringer-header-spacing) 0;
+    padding: 15px 0;
     min-height: 44px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: var(--stg-container-width);
+    width: auto;
     margin: 0 auto;
     position: relative;
     z-index: 5;
@@ -1060,6 +1078,21 @@ section {
     padding: var(--bringer-section-gap) 0;
     position: relative;
 }
+
+/* Remove visible borders between sections */
+section + section::before {
+    display: none;
+}
+
+/* Unified dark background for all sections */
+section, section:nth-child(even), section:nth-child(odd) {
+    background: transparent;
+}
+
+/* Add subtle gradient overlay to main container for smooth transitions */
+.stg-container {
+    background: transparent;
+}
 section > div {
     position: relative;
     z-index: 5;
@@ -1153,10 +1186,7 @@ section.divider-both::before,
 section.divider-both::after,
 section.divider-top::before,
 section.divider-bottom::after {
-    width: 100vw;
-    height: 1px;
-    display: block;
-    background: var(--bringer-c-border-gradient);
+    display: none;
 }
 section.divider-both::before,
 section.divider-top::before {
@@ -1188,6 +1218,12 @@ section.backlight-top:last-child::before {
 #bringer-footer {
     position: relative;
     z-index: 22;
+    background: transparent;
+}
+
+/* Smooth transition from last section to footer */
+#bringer-footer::before {
+    display: none;
 }
 #bringer-footer.is-sticky,
 .bringer-fullscreen-page #bringer-footer {
@@ -1209,17 +1245,7 @@ section.backlight-top:last-child::before {
 /* === Footer Widgets === */
 .bringer-footer-line::before,
 .bringer-footer-widgets::before {
-    content: '';
-    width: 100%;
-    height: 1px;
-    display: block;
-    background: var(--bringer-c-border-gradient);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.bringer-footer-widgets::before {
-    opacity: 0.5;
+    display: none;
 }
 .bringer-footer-widgets {
     padding: var(--stg-large-gap) 0;
@@ -1622,30 +1648,86 @@ ul.bringer-socials-list.stg-xl-gap {
 }
 
 /* === Layout 05 === */
-.bringer-hero-type05 .bringer-title-block {
-    aspect-ratio: 1/1;
+.bringer-hero-type05 {
+    background: var(--bringer-s-body-bg);
+    min-height: 100vh;
+    padding: 120px 0;
+    display: flex;
+    align-items: center;
+}
+.bringer-hero-type05 .stg-row {
+    align-items: center;
+    display: flex;
+    gap: 80px;
+    width: 100%;
+}
+.bringer-hero-type05 .stg-col-6 {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+}
+.bringer-hero-type05 .bringer-title-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
-    margin-bottom: var(--stg-gap);
-    border-radius: var(--bringer-default-br);
+    gap: 32px;
+}
+.bringer-hero-type05 .bringer-title-block .bringer-page-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 .bringer-hero-type05 .bringer-title-block .bringer-large-text {
-    max-width: 425px;
+    max-width: 520px;
+    line-height: 1.7;
+    font-size: 1.125rem;
+    color: var(--bringer-s-text);
+}
+.bringer-hero-type05 .bringer-button {
+    margin-top: 16px;
 }
 .bringer-hero-type05 .bringer-hero-media-wrap {
     position: relative;
-    border-radius: var(--bringer-default-br);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4),
+                0 0 100px rgba(127, 90, 240, 0.15),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 420px;
+    margin: 0 0 0 auto;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(127, 90, 240, 0.1) 0%, rgba(44, 182, 125, 0.1) 100%);
+}
+.bringer-hero-type05 .bringer-hero-media-wrap::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(127, 90, 240, 0.1) 0%, transparent 70%);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+@keyframes heroGlow {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20%, 20%); }
 }
 .bringer-hero-type05 .bringer-hero-media-wrap img {
-    position: absolute;
-    width: calc(100% - 2 * var(--stg-large-gap));
-    height: auto;
-    top: var(--stg-large-gap);
-    left: var(--stg-large-gap);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    box-shadow: 0 8px 16px var(--bringer-s-box-shadow);
+    border-radius: 24px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.5s ease;
+}
+.bringer-hero-type05 .bringer-hero-media-wrap:hover img {
+    transform: scale(1.02);
 }
 .bringer-hero-type05 .bringer-square-button {
     width: 100%;
@@ -2029,6 +2111,17 @@ ul.bringer-socials-list.stg-xl-gap {
     -webkit-mask-image: var(--icon-arrow-explore);
     mask-image: var(--icon-arrow-explore);
 }
+.bringer-button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+.bringer-button-icon .bringer-icon {
+    width: 16px;
+    height: 16px;
+}
 .bringer-icon-arrow-down {
     -webkit-mask-image: var(--icon-arrow-down);
     mask-image: var(--icon-arrow-down);
@@ -2079,6 +2172,7 @@ ul.bringer-socials-list.stg-xl-gap {
     position: relative;
     --mouse-x: 50%;
     --mouse-y: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 .bringer-block.stg-valign-middle {
     display: flex;
@@ -2395,13 +2489,26 @@ a.bringer-arrow-link {
 .bringer-portfolio-card {
     padding: var(--stg-small-gap);
     border-radius: var(--bringer-default-br);
+    position: relative;
+    background: var(--bringer-s-container-bg);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+.bringer-portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(127, 90, 240, 0.1);
 }
 .bringer-portfolio-card-image {
-    transition: transform 0.3s;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     contain: paint;
     aspect-ratio: 1/1;
     border-radius: var(--bringer-small-br);
+    overflow: hidden;
+}
+.bringer-portfolio-card:hover .bringer-portfolio-card-image {
+    transform: scale(1.03);
 }
 .bringer-portfolio-card-image .st-lazy-wrapper {
     border-radius: var(--bringer-small-br);
@@ -2424,16 +2531,33 @@ a.bringer-arrow-link {
     min-height: 24px;
     align-self: flex-end;
 }
+.bringer-portfolio-card-title .bringer-meta {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bringer-s-accent);
+    margin-bottom: 4px;
+    display: block;
+}
 .bringer-portfolio-card-title h6 {
     margin: 0;
+    transition: color 0.3s;
+}
+.bringer-portfolio-card:hover .bringer-portfolio-card-title h6 {
+    color: var(--bringer-s-accent);
 }
 .bringer-portfolio-card .bringer-icon {
     transform-origin: 0% 100%;
     width: 24px;
     height: 24px;
-    transition: transform 0.3s;
+    transition: transform 0.3s, color 0.3s;
     margin-right: var(--stg-xs-gap);
     margin-top: var(--stg-xs-gap);
+    color: var(--bringer-s-text);
+}
+.bringer-portfolio-card:hover .bringer-icon {
+    transform: scale(1.2, 1.2);
+    color: var(--bringer-s-accent);
 }
 .bringer-portfolio-card > a {
     position: absolute;
@@ -2443,6 +2567,136 @@ a.bringer-arrow-link {
     bottom: 0;
     display: block;
     border-radius: var(--bringer-small-br);
+    z-index: 10;
+}
+/* Portfolio Grid Container */
+.bringer-portfolio-grid {
+    margin-bottom: var(--stg-large-gap);
+}
+.bringer-portfolio-grid .stg-row {
+    gap: var(--stg-gap);
+}
+.bringer-portfolio-grid .stg-col-4,
+.bringer-portfolio-grid .stg-col-6 {
+    margin-bottom: var(--stg-gap);
+}
+
+/* === Portfolio Modal === */
+.bringer-portfolio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.bringer-portfolio-modal.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+.bringer-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.bringer-modal-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    max-width: 900px;
+    width: 90%;
+    max-height: 85vh;
+    background: var(--bringer-s-container-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(127, 90, 240, 0.2);
+    transform: scale(0.9) translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bringer-portfolio-modal.is-active .bringer-modal-content {
+    transform: scale(1) translateY(0);
+}
+.bringer-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, transform 0.3s;
+    z-index: 10;
+}
+.bringer-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+.bringer-modal-close .bringer-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--bringer-s-heading);
+}
+.bringer-modal-image {
+    flex: 0 0 50%;
+    max-width: 450px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+.bringer-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.bringer-modal-info {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+.bringer-modal-category {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--bringer-s-accent);
+    margin-bottom: 12px;
+    padding: 6px 14px;
+    background: rgba(127, 90, 240, 0.15);
+    border-radius: 20px;
+    width: fit-content;
+}
+.bringer-modal-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--bringer-s-heading);
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+}
+.bringer-modal-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--bringer-s-text);
+    margin: 0;
 }
 
 /* === Portfolio Short List === */
@@ -3921,7 +4175,9 @@ button.pswp__button.bringer-pswp-next::after {
     input[type="submit"]:hover,
     button:not([class*='pswp']):hover,
     a.bringer-button:hover {
-        background-color: var(--bringer-button-hover-bg);
+        background: #9d7af5;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(127, 90, 240, 0.3);
     }
     a.bringer-button.is-secondary:hover,
     .bringer-square-button.is-secondary:hover {
